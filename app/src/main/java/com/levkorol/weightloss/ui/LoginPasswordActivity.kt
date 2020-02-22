@@ -1,9 +1,10 @@
-package com.levkorol.weightloss
+package com.levkorol.weightloss.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.levkorol.weightloss.R
 
 class LoginPasswordActivity : AppCompatActivity() {
 
