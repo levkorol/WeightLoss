@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke android:color="@color/Orange" android:width="4dp" />
+        </shape>
+    </item>
+    <item android:left="4dp" android:top="4dp" android:bottom="4dp" android:right="4dp">
+        <shape android:shape="oval">
+            <stroke android:color="@android:color/white" android:width="4dp" />
+        </shape>
+    </item>
+    <!-- TODO 22.02 #1 -->
+</layer-list>

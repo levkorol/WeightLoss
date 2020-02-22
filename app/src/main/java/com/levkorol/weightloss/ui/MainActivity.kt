@@ -10,12 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.levkorol.weightloss.R
+import com.levkorol.weightloss.model.SongInfo
+import com.levkorol.weightloss.service.PlayerService
+import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
@@ -196,6 +200,8 @@ class MainActivity : AppCompatActivity() {
 
     fun goToMenu(v: View) {
         val intent = Intent(this@MainActivity, LoginPasswordActivity::class.java)
+        val songInfos: ArrayList<SongInfo> = arrayListOf()
+        intent.putExtra("as", songInfos)
         startActivity(intent)
     }
 
@@ -273,6 +279,16 @@ class MainActivity : AppCompatActivity() {
             mp?.stop()
             play(uris!![songIndex])
         })
+
+        val songInfo = getSongInfo(this, uri)
+        if (songInfo == null) {
+            // TODO отобразить ошибку?
+        } else {
+            titleTextView.text = songInfo.title
+            val albumPhotoUri = Uri.parse("TODO 22.02 #3")
+            albumImageView.setImageURI(albumPhotoUri)
+            // TODO 22.02 #3
+        }
     }
 
     private fun createTimeLabel(time: Int): String {
@@ -291,6 +307,7 @@ class MainActivity : AppCompatActivity() {
             REQUEST_CODE
         )
     }
+
 }
 
 
