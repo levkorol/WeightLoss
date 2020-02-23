@@ -21,6 +21,7 @@ import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.service.PlayerService
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_song.*
 import java.lang.Exception
 
 
@@ -282,12 +283,16 @@ class MainActivity : AppCompatActivity() {
 
         val songInfo = getSongInfo(this, uri)
         if (songInfo == null) {
-            // TODO отобразить ошибку?
+            Toast.makeText(
+                this, "ne udalos zagruzit pesn",
+               Toast.LENGTH_LONG
+            ).show()
         } else {
-            titleTextView.text = songInfo.title
-            val albumPhotoUri = Uri.parse("TODO 22.02 #3")
+            titleSongTextView.text = songInfo.title
+            titleArtistTextView.text = songInfo.artist
+            val albumPhotoUri = Uri.parse("content://media/external/audio/albumart/albomId")
             albumImageView.setImageURI(albumPhotoUri)
-            // TODO 22.02 #3
+            // TODO 22.02 #3 ok
         }
     }
 

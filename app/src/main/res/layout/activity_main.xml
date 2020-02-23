@@ -32,24 +32,38 @@
             android:onClick="goToMenu" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        >
+
     <ImageView
         android:id="@+id/albumImageView"
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        android:src="@drawable/photo" />
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:src="@drawable/photoalbum"
+        android:layout_gravity="center"
+
+        />
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/titleSongTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_below="@id/albumImageView"
-        android:text="Hightwey to Hell"
+        android:text="Song"
         android:textSize="19sp"
         android:textStyle="bold"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="19sp"
-        android:text="AC/DC"/>
+
+        <TextView
+            android:id="@+id/titleArtistTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:text="Artist"
+            android:textSize="19sp" />
+    </RelativeLayout>
 
     <!-- TODO 22.02 #2 -->
 
@@ -57,7 +71,7 @@
         android:id="@+id/playerPanelLayout"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="350dp"
         android:background="@drawable/backgroundplayer"
         android:orientation="vertical">
 
@@ -203,7 +217,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="75dp" />
+            android:layout_height="80dp" />
 
 
         <LinearLayout
@@ -269,18 +283,23 @@
         android:layout_height="100dp">
 
         <TextView
-            android:text="Weight\nLoss Mode"
-            android:textAllCaps="true"
-            android:gravity="center"
             android:layout_width="100dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:gravity="center|top"
+            android:text="\nWeight\nLoss Mode\n"
+            android:textAllCaps="true"
+            android:textColor="#FF5C47"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:text="Off"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textAllCaps="true"
             android:layout_width="100dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:gravity="center|top"
+            android:text="Off"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>
