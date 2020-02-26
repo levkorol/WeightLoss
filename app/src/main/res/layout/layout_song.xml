@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundregistr">
+    >
 
     <TextView
+        android:layout_marginLeft="30dp"
         android:id="@+id/titleSongTextViewInList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +14,10 @@
         android:textStyle="bold"
         android:textSize="20sp"/>
 
+
+
     <TextView
+        android:layout_marginLeft="30dp"
         android:id="@+id/titleArtistTextViewInList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,5 +25,8 @@
         android:text="Artist" />
 
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line"/>
 </LinearLayout>

@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun btnListAudio(v: View) {
+    fun addSongs(v: View) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -206,7 +206,20 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun listSongs(v: View) {
+        val intent = Intent(this@MainActivity, SongsActivity::class.java)
+        val songInfos: ArrayList<SongInfo> = arrayListOf()
+        if (uris != null) {
+            for (uri in uris!!) {
+                val songs = getSongInfo(this, uri)
+                songInfos.add(songs!!)
+            }
+        }
+        intent.putExtra("as", songInfos)
+        startActivity(intent)
+    }
 
+    
     private fun play(uris: List<Uri>?) {
         mp?.release()
         mp = null
@@ -285,12 +298,13 @@ class MainActivity : AppCompatActivity() {
         if (songInfo == null) {
             Toast.makeText(
                 this, "ne udalos zagruzit pesn",
-               Toast.LENGTH_LONG
+                Toast.LENGTH_LONG
             ).show()
         } else {
             titleSongTextView.text = songInfo.title
             titleArtistTextView.text = songInfo.artist
-            val albumPhotoUri = Uri.parse("content://media/external/audio/albumart/albomId")
+            val albumPhotoUri =
+                Uri.parse("content://media/external/audio/albumart/${songInfo.albumId}")
             albumImageView.setImageURI(albumPhotoUri)
             // TODO 22.02 #3 ok
         }

@@ -12,7 +12,11 @@ fun getSongInfo(context: Context, songUri: Uri): SongInfo? {
     val id = songUri.path?.split(":")?.get(1)
     val cursor: Cursor? = context.contentResolver.query(
         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, // адрес базы данных
-        arrayOf(MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.ALBUM_ID, MediaStore.Audio.Media.ARTIST), // TODO 22.02 #3 ok
+        arrayOf(
+            MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.ALBUM_ID,
+            MediaStore.Audio.Media.ARTIST
+        ), // TODO 22.02 #3 ok
         MediaStore.Audio.Media._ID + "= ?",
         arrayOf(id.toString()),
         null
@@ -22,7 +26,7 @@ fun getSongInfo(context: Context, songUri: Uri): SongInfo? {
             null
         } else {
             cursor.moveToFirst()
-            SongInfo(cursor.getString(0), cursor.getInt(1),cursor.getString(2)) // TODO 22.02 #3 ok
+            SongInfo(cursor.getString(0), cursor.getInt(1), cursor.getString(2)) // TODO 22.02 #3 ok
         }
     } finally {
         cursor?.close()
