@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
     android:gravity="center"
-    >
+    tools:context=".ui.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,9 +23,9 @@
 
         <ImageButton
             android:id="@+id/burgerButton"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/burgermenu"
@@ -54,11 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/albumImageView"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:text="Song"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:layout_centerInParent="true"
 
             />
 
@@ -73,11 +71,23 @@
 
     <!-- TODO 22.02 #2 -->
 
+    <FrameLayout
+        android:id="@+id/songsLayout"
+        android:layout_width="match_parent"
+        android:layout_alignTop="@id/playerPanelLayout"
+        android:layout_height="100dp">
+
+        <View
+            android:background="@color/Orange"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/playerPanelLayout"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/backgroundplayer"
         android:orientation="vertical">
 
@@ -96,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
 
@@ -220,7 +231,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" />
+            android:layout_marginRight="30dp"
+            android:paddingStart="6dp" />
 
         <View
             android:layout_width="0dp"
@@ -256,11 +268,13 @@
                 android:layout_width="85dp"
                 android:layout_height="0dp" />
 
-            <ImageButton
+            <ImageView
+                android:id="@+id/shuffleImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shuffle"
-                android:onClick="shufleBtnOnClick"/>
+                android:onClick="shufleBtnOnClick"
+                android:padding="8dp"
+                android:src="@drawable/shuffle" />
 
             <View
                 android:layout_width="85dp"
@@ -281,13 +295,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/bg_weight_loss_button"
-        android:layout_above="@id/playerPanelLayout"
-        android:layout_centerHorizontal="true"
-        android:translationY="50dp"
+        android:id="@+id/weightLossModeLayout"
         android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/songsLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_weight_loss_button"
         android:orientation="vertical"
-        android:layout_height="100dp">
+        android:translationY="50dp">
 
         <TextView
             android:layout_width="100dp"

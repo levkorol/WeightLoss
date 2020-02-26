@@ -18,10 +18,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
-import com.levkorol.weightloss.service.PlayerService
+import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_song.*
 import java.lang.Exception
 
 
@@ -43,9 +42,12 @@ class MainActivity : AppCompatActivity() {
     private var mp: MediaPlayer? = null
     private var totalTime: Int = 0
 
+    private var originalUris: List<Uri>? = null
     private var uris: List<Uri>? = null
     private var songIndex: Int = -1
 
+    private var shuffleMode: Boolean = false
+    // TODO 26.02 #5 флаг для репита
 
     @SuppressLint("HandlerLeak")
     var handler = object : Handler() {
@@ -162,6 +164,7 @@ class MainActivity : AppCompatActivity() {
                                 uris.add(clipData.getItemAt(i).uri)
                             }
                         }
+                        originalUris = uris
                         play(uris)
                     }
                 }
@@ -207,18 +210,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun listSongs(v: View) {
-        val intent = Intent(this@MainActivity, SongsActivity::class.java)
-        val songInfos: ArrayList<SongInfo> = arrayListOf()
-        if (uris != null) {
-            for (uri in uris!!) {
-                val songs = getSongInfo(this, uri)
-                songInfos.add(songs!!)
-            }
+        if (songsLayout.translationY == 0f) {
+            songsLayout.translationY = -dp(100).toFloat()
+        } else {
+            songsLayout.translationY = 0f
         }
-        intent.putExtra("as", songInfos)
-        startActivity(intent)
+        weightLossModeLayout.translationY = songsLayout.translationY + dp(50)
+//        val intent = Intent(this@MainActivity, SongsActivity::class.java)
+//        val list = arrayListOf<Uri>()
+//        if (uris != null) list.addAll(uris!!)
+//        intent.putExtra("as", list)
+//        startActivity(intent)
     }
-
     
     private fun play(uris: List<Uri>?) {
         mp?.release()
@@ -250,13 +253,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //TODO dodelat otklyuchenie shaffle
+    // TODO 26.02 #4c меняем фон у кнопки
     fun shufleBtnOnClick(view: View) {
         mp?.stop()
-        play(uris?.shuffled())
+        if (shuffleMode) {
+            shuffleMode = false
+            play(originalUris)
+        } else {
+            shuffleMode = true
+            play(uris?.shuffled())
+        }
     }
 
-    //TODO sdelat povtor i ego otkluchenie
+    // TODO 26.02 #5 по аналогии с shuffle только тут просто меняем флаг и меняем фон у кнопки
     fun repeatBtnOnClick(view: View) {
 
     }
@@ -288,6 +297,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mp?.setOnCompletionListener(MediaPlayer.OnCompletionListener {
+            // TODO 26.02 #5 если репит включён то не нужно переходить к следующей
             songIndex++
             if (songIndex >= uris!!.size) songIndex = 0
             mp?.stop()
@@ -303,10 +313,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             titleSongTextView.text = songInfo.title
             titleArtistTextView.text = songInfo.artist
-            val albumPhotoUri =
-                Uri.parse("content://media/external/audio/albumart/${songInfo.albumId}")
-            albumImageView.setImageURI(albumPhotoUri)
-            // TODO 22.02 #3 ok
+            if (songInfo.albumBitmap == null) {
+                albumImageView.setImageResource(R.drawable.photoalbum)
+            } else {
+                albumImageView.setImageBitmap(songInfo.albumBitmap)
+            }
         }
     }
 

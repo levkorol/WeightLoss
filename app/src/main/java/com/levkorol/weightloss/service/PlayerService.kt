@@ -20,7 +20,8 @@ class PlayerService : IntentService("PlayerService") {
         private const val ACTION_PAUSE = "ACTION_PAUSE"
         private const val ACTION_VOLUME = "ACTION_VOLUME"
         private const val ACTION_PLAY_NEXT = "ACTION_PLAY_NEXT"
-        // TODO 17.02 #2.1 константы для операций
+
+        private const val EXTRA_VOLUME = "VOLUME"
 
         fun play(context: Context, uri: Uri) { // это типа статический метод
             val intent = Intent(context, PlayerService::class.java)
@@ -38,18 +39,17 @@ class PlayerService : IntentService("PlayerService") {
         fun setVolume(context: Context, volume: Float) {
             val intent = Intent(context, PlayerService::class.java)
             intent.action = ACTION_VOLUME
-            intent.putExtra("", volume)
+            intent.putExtra(EXTRA_VOLUME, volume)
             context.startService(intent)
         }
 
         fun playNext(context: Context) {
             val intent = Intent(context, PlayerService::class.java)
             intent.action = ACTION_PLAY_NEXT
-            intent.clipData
             context.startService(intent)
         }
 
-        // TODO 17.02 #2.2 статический метод setVolume
+        // TODO 26.02 #1
     }
 
     override fun onHandleIntent(intent: Intent) { // сама логика
@@ -61,12 +61,12 @@ class PlayerService : IntentService("PlayerService") {
                 pause()
             }
             ACTION_VOLUME -> {
-                volume()
+                volume(intent.getFloatExtra(EXTRA_VOLUME, 0.5f))
             }
             ACTION_PLAY_NEXT -> {
-              //  playNext()
+               playNext()
             }
-            // TODO 17.02 #2.3 ACTION_VOLUME ->
+            // TODO 26.02 #1
         }
     }
 
@@ -81,33 +81,33 @@ class PlayerService : IntentService("PlayerService") {
         mp.pause()
     }
 
-    private fun volume() {
+    private fun volume(volume: Float) {
         MediaPlayer().apply {
-            setVolume(0.5f, 0.5f)
+            setVolume(volume, volume)
             prepareAsync()
         }
     }
 
-  /*  private fun playNext() {
+    private fun playNext() {
         if (uris != null) {
             songIndex++
             if (songIndex >= uris!!.size) songIndex = 0
             mp.stop()
-            playU(uris!![songIndex])
+            mp.setDataSource(this, uris!![songIndex])
+            mp.prepareAsync()
+            mp.setOnPreparedListener { mp -> mp.start() }
         }
-
-
-        // TODO 17.02 #2.4 setVolume (сама логика)
-
     }
 
-    private fun playU(uris: List<Uri>?) {
-        mp.release()
-        mp = null
-        this.uris = uris
-        if (uris != null) {
-            songIndex = 0
-            play(uris[songIndex])
-        }
-    } */
+    // TODO 26.02 #1
+
+//    private fun playU(uris: List<Uri>?) {
+//        mp.release()
+//        mp = null
+//        this.uris = uris
+//        if (uris != null) {
+//            songIndex = 0
+//            play(uris[songIndex])
+//        }
+//    }
 }
