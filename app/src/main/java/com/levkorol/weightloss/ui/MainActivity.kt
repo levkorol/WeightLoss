@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    
+
     private fun play(uris: List<Uri>?) {
         mp?.release()
         mp = null
