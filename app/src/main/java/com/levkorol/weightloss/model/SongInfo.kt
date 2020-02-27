@@ -1,8 +1,9 @@
 package com.levkorol.weightloss.model
 
+import android.graphics.Bitmap
+
 data class SongInfo(
-    val title: String?, // название песни
-    val albumId: Int?, // id альбома
-    val artist: String?
-    // TODO 22.02 #3 ok
+    val title: String?,
+    val artist: String?,
+    val albumBitmap: Bitmap? // картинка постера
 )

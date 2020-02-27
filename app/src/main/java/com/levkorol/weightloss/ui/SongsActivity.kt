@@ -1,10 +1,9 @@
 package com.levkorol.weightloss.ui
 
+import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.util.getSongInfo
-import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.image
 
 // TODO 22.02 #4 =(
 class SongsActivity : AppCompatActivity() {
@@ -22,18 +19,24 @@ class SongsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_songs)
 
+        @Suppress("UNCHECKED_CAST")
+        val uris = intent.getSerializableExtra("as") as ArrayList<Uri>
+        val songInfos: ArrayList<SongInfo> = arrayListOf()
+        for (uri in uris) {
+            val songs = getSongInfo(this, uri)
+            songInfos.add(songs!!)
+        }
+
         val recyclerView: RecyclerView = findViewById(R.id.my_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-     //   val serializableExtra = intent.getSerializableExtra("as", songInfos)
-      //  recyclerView.adapter = Adapter(serializableExtra)
-
+        recyclerView.adapter = Adapter(songInfos)
     }
 
     class Adapter(private var songInfos: List<SongInfo>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
         class ViewHolder(itemView: ViewGroup) : RecyclerView.ViewHolder(itemView) {
-            val titleSongTextView: TextView = itemView.findViewById(R.id.titleSongTextView)
-           val titleArtistTextView: TextView = itemView.findViewById(R.id.titleArtistTextView)
+            val titleSongTextView: TextView = itemView.findViewById(R.id.titleSongTextViewInList)
+            val titleArtistTextView: TextView = itemView.findViewById(R.id.titleArtistTextViewInList)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

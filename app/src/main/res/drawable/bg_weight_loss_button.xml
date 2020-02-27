@@ -4,7 +4,7 @@
     <item android:left="8dp" android:top="8dp" android:bottom="8dp" android:right="8dp">
         <shape android:shape="oval">
             <stroke android:color="@color/white" android:width="4dp" />
-            
+
         </shape>
     </item>
     <item >
