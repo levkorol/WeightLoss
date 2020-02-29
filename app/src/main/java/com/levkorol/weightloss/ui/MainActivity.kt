@@ -2,11 +2,12 @@ package com.levkorol.weightloss.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +29,6 @@ import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 
 
 // CTRL + ALT + L
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     private var repeatMode: Boolean = false
 
 
-    private val adapterr =  Adapter(arrayListOf())
+    private val adapter = Adapter(arrayListOf())
 
     @SuppressLint("HandlerLeak")
     var handler = object : Handler() {
@@ -79,20 +80,19 @@ class MainActivity : AppCompatActivity() {
 
 
         @Suppress("UNCHECKED_CAST")
-   //     val uris = intent.getSerializableExtra("as") as ArrayList<Uri>
-      //  val songInfos: ArrayList<SongInfo> = arrayListOf()
+        //     val uris = intent.getSerializableExtra("as") as ArrayList<Uri>
+        //  val songInfos: ArrayList<SongInfo> = arrayListOf()
 //        for (uri in uris) {
 //            val songs = getSongInfo(this, uri)
 //            songInfos.add(songs!!)
 //        }
         val recyclerView: RecyclerView = findViewById(R.id.my_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-            //  val adapterr =  Adapter(arrayListOf())
-          recyclerView.adapter = adapterr
+        //  val adapterr =  Adapter(arrayListOf())
+        recyclerView.adapter = adapter
 
 
-
-                //Volume Bar
+        //Volume Bar
         volumeBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                     if (fromUser) {
                         var volumeNum = progress / 100.0f
                         mp?.setVolume(volumeNum, volumeNum)
+                        Log.v("WEIGHT-LOSS", "onProgressChanged: $volumeNum")
                     }
                 }
 
@@ -203,12 +204,17 @@ class MainActivity : AppCompatActivity() {
         if (mp?.isPlaying == true) {
             //Stop
             mp?.pause()
-            playBtn.setBackgroundResource(R.drawable.playbutton)
+            playBtn.setBackgroundResource(R.drawable.playbutton) // TODO 26.02 убрать
         } else {
             //Start
             mp?.start()
-            playBtn.setBackgroundResource(R.drawable.pause)
+            playBtn.setBackgroundResource(R.drawable.pause) // TODO 26.02 убрать
         }
+        updatePlayButton()
+    }
+
+    fun updatePlayButton() {
+        // TODO 26.02 дописать = если песня проигрывается то иконка паузы иначе иконка плея
     }
 
 
@@ -234,29 +240,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun listSongs(v: View) {
+        val height = songsLayout.measuredHeight
         if (songsLayout.translationY == 0f) {
-            songsLayout.translationY = -dp(260).toFloat()
+            songsLayout.translationY = -height.toFloat()
         } else {
             songsLayout.translationY = 0f
         }
         weightLossModeLayout.translationY = songsLayout.translationY + dp(50)
 
-//
-//        var songInfos : List<SongInfo> = arrayListOf()
-//        for (uri in uris!!) {
-//             val songs = getSongInfo(this, uri)
-//            songInfos.add(songs!!)
-//        }
-//         adapterr.songInfos = ArrayList<SongInfo>()
-
-
-
-//        val intent = Intent(this@MainActivity, SongsActivity::class.java)
-//        val list = arrayListOf<Uri>()
-//        if (uris != null) list.addAll(uris!!)
-//        intent.putExtra("as", list)
-//        startActivity(intent)
-         }
+        if (uris == null) {
+            // TODO 26.02 создать список пустых SongInfo
+            // TODO       либо тупо TextView c подсказкой
+//            adapter.songInfos = songInfos
+//            adapter.notifyDataSetChanged()
+        } else {
+            var songInfos: MutableList<SongInfo> = arrayListOf()
+            for (uri in uris!!) {
+                val songs = getSongInfo(this, uri)
+                songInfos.add(songs!!)
+            }
+            adapter.songInfos = songInfos
+            adapter.notifyDataSetChanged()
+        }
+    }
 
     private fun play(uris: List<Uri>?) {
         mp?.release()
@@ -324,7 +330,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(shareIntent, "send to"))
     }
 
-
     private fun play(uri: Uri) {
         mp = MediaPlayer().apply {
             setDataSource(applicationContext, uri)
@@ -338,13 +343,14 @@ class MainActivity : AppCompatActivity() {
 
         mp?.setOnPreparedListener { mp ->
             mp.start()
+            updatePlayButton()
             totalTime = mp.duration
             positionBar.max = totalTime
         }
 
         mp?.setOnCompletionListener(MediaPlayer.OnCompletionListener {
             // TODO 26.02 #5 если репит включён то не нужно переходить к следующей ok
-            if(repeatMode == true) {
+            if (repeatMode == true) {
                 mp?.stop()
                 play(uris!![songIndex])
             } else {
@@ -363,6 +369,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         } else {
+            Log.v("WEIGHT-LOSS", "play: $songInfo")
             titleSongTextView.text = songInfo.title
             titleArtistTextView.text = songInfo.artist
             if (songInfo.albumBitmap == null) {
@@ -390,13 +397,29 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    // TODO 26.02 вызвать метод при сворачивании
+    private fun save() {
+        val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        if (uris != null) { // List<Uri> -> Set<String>
+            val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
+            sp.edit().putStringSet("PLAYLIST", urisAsStrings.toSet()).apply()
+        }
+    }
 
+    // TODO 26.02 вызвать метод при старте
+    private fun load() {
+        val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val stringsSet = sp.getStringSet("PLAYLIST", setOf()) // Set<String> -> List<Uri>
+        uris = stringsSet.map { string -> Uri.parse(string) }.toList()
+    }
 
-    class Adapter(private var songInfos: List<SongInfo>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+    inner class Adapter(var songInfos: List<SongInfo>) :
+        RecyclerView.Adapter<Adapter.ViewHolder>() {
 
-        class ViewHolder(itemView: ViewGroup) : RecyclerView.ViewHolder(itemView) {
+        inner class ViewHolder(itemView: ViewGroup) : RecyclerView.ViewHolder(itemView) {
             val titleSongTextView: TextView = itemView.findViewById(R.id.titleSongTextViewInList)
             val titleArtistTextView: TextView = itemView.findViewById(R.id.titleArtistTextViewInList)
+            val playImageView: ImageView = itemView.findViewById(R.id.playImageView)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -408,7 +431,11 @@ class MainActivity : AppCompatActivity() {
             val songInfo = songInfos[position]
             holder.titleSongTextView.text = songInfo.title
             holder.titleArtistTextView.text = songInfo.artist
-
+            holder.playImageView.setOnClickListener {
+                // TODO 26.02 менять иконку у кнопки
+                mp?.stop()
+                play(songInfo.uri)
+            }
         }
 
         override fun getItemCount() = songInfos.size

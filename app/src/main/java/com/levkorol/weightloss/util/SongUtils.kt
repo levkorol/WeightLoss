@@ -18,6 +18,7 @@ fun getSongInfo(context: Context, songUri: Uri): SongInfo? {
     val retriever = MediaMetadataRetriever()
     retriever.setDataSource(context, songUri)
     return SongInfo(
+        uri = songUri,
         title = retriever.extractMetadata(METADATA_KEY_TITLE),
         artist = retriever.extractMetadata(METADATA_KEY_ARTIST),
         albumBitmap = toBitmap(retriever.embeddedPicture)
