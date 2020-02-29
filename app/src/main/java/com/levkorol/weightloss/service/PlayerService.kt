@@ -20,6 +20,7 @@ class PlayerService : IntentService("PlayerService") {
         private const val ACTION_PAUSE = "ACTION_PAUSE"
         private const val ACTION_VOLUME = "ACTION_VOLUME"
         private const val ACTION_PLAY_NEXT = "ACTION_PLAY_NEXT"
+        private const val ACTION_PLAY_PREV = "ACTION_PLAY_PREV"
 
         private const val EXTRA_VOLUME = "VOLUME"
 
@@ -49,6 +50,12 @@ class PlayerService : IntentService("PlayerService") {
             context.startService(intent)
         }
 
+        fun  playPrev(context: Context) {
+            val intent = Intent(context, PlayerService::class.java)
+            intent.action = ACTION_PLAY_NEXT
+            context.startService(intent)
+        }
+
         // TODO 26.02 #1
     }
 
@@ -66,9 +73,14 @@ class PlayerService : IntentService("PlayerService") {
             ACTION_PLAY_NEXT -> {
                playNext()
             }
+            ACTION_PLAY_PREV -> {
+                playPrev()
+            }
             // TODO 26.02 #1
         }
     }
+
+
 
     private fun play(intent: Intent) {
         mp.setDataSource(applicationContext, intent.data!!)
@@ -92,6 +104,18 @@ class PlayerService : IntentService("PlayerService") {
         if (uris != null) {
             songIndex++
             if (songIndex >= uris!!.size) songIndex = 0
+            mp.stop()
+            mp.setDataSource(this, uris!![songIndex])
+            mp.prepareAsync()
+            mp.setOnPreparedListener { mp -> mp.start() }
+        }
+    }
+
+    private fun playPrev() {
+        if (songIndex == 0) songIndex++
+        if (uris != null) {
+            songIndex--
+            if (songIndex >= uris!!.size) songIndex.minus(1)
             mp.stop()
             mp.setDataSource(this, uris!![songIndex])
             mp.prepareAsync()

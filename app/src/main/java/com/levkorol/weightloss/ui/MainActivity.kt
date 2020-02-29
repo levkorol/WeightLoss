@@ -11,11 +11,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.util.dp
@@ -47,17 +53,18 @@ class MainActivity : AppCompatActivity() {
     private var songIndex: Int = -1
 
     private var shuffleMode: Boolean = false
-    // TODO 26.02 #5 флаг для репита
+    private var repeatMode: Boolean = false
+
+
+    private val adapterr =  Adapter(arrayListOf())
 
     @SuppressLint("HandlerLeak")
     var handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             val currentPosition = msg.what
 
-            //Update positionBar
             positionBar.progress = currentPosition
 
-            //Update Labeles
             val elapsedTime = createTimeLabel(currentPosition)
             elapsedTimeLabel.text = elapsedTime
 
@@ -68,8 +75,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.levkorol.weightloss.R.layout.activity_main)
-        //Volume Bar
+        setContentView(R.layout.activity_main)
+
+
+        @Suppress("UNCHECKED_CAST")
+   //     val uris = intent.getSerializableExtra("as") as ArrayList<Uri>
+      //  val songInfos: ArrayList<SongInfo> = arrayListOf()
+//        for (uri in uris) {
+//            val songs = getSongInfo(this, uri)
+//            songInfos.add(songs!!)
+//        }
+        val recyclerView: RecyclerView = findViewById(R.id.my_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+            //  val adapterr =  Adapter(arrayListOf())
+          recyclerView.adapter = adapterr
+
+
+
+                //Volume Bar
         volumeBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
@@ -180,13 +203,14 @@ class MainActivity : AppCompatActivity() {
         if (mp?.isPlaying == true) {
             //Stop
             mp?.pause()
-            playBtn.setBackgroundResource(com.levkorol.weightloss.R.drawable.playbutton)
+            playBtn.setBackgroundResource(R.drawable.playbutton)
         } else {
             //Start
             mp?.start()
-            playBtn.setBackgroundResource(com.levkorol.weightloss.R.drawable.pause)
+            playBtn.setBackgroundResource(R.drawable.pause)
         }
     }
+
 
     fun addSongs(v: View) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -211,17 +235,28 @@ class MainActivity : AppCompatActivity() {
 
     fun listSongs(v: View) {
         if (songsLayout.translationY == 0f) {
-            songsLayout.translationY = -dp(100).toFloat()
+            songsLayout.translationY = -dp(260).toFloat()
         } else {
             songsLayout.translationY = 0f
         }
         weightLossModeLayout.translationY = songsLayout.translationY + dp(50)
+
+//
+//        var songInfos : List<SongInfo> = arrayListOf()
+//        for (uri in uris!!) {
+//             val songs = getSongInfo(this, uri)
+//            songInfos.add(songs!!)
+//        }
+//         adapterr.songInfos = ArrayList<SongInfo>()
+
+
+
 //        val intent = Intent(this@MainActivity, SongsActivity::class.java)
 //        val list = arrayListOf<Uri>()
 //        if (uris != null) list.addAll(uris!!)
 //        intent.putExtra("as", list)
 //        startActivity(intent)
-    }
+         }
 
     private fun play(uris: List<Uri>?) {
         mp?.release()
@@ -253,21 +288,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // TODO 26.02 #4c меняем фон у кнопки
+    // TODO 26.02 #4c меняем фон у кнопки ok
     fun shufleBtnOnClick(view: View) {
         mp?.stop()
         if (shuffleMode) {
+            shuffleImageView.setBackgroundResource(R.drawable.offbtn)
             shuffleMode = false
             play(originalUris)
         } else {
+            shuffleImageView.setBackgroundResource(R.drawable.onbtn)
             shuffleMode = true
             play(uris?.shuffled())
         }
     }
 
-    // TODO 26.02 #5 по аналогии с shuffle только тут просто меняем флаг и меняем фон у кнопки
+    // TODO 26.02 #5 по аналогии с shuffle только тут просто меняем флаг и меняем фон у кнопки ok
     fun repeatBtnOnClick(view: View) {
-
+        mp?.stop()
+        if (repeatMode) {
+            repeatImageView.setBackgroundResource(R.drawable.offbtn)
+            repeatMode = false
+            play(originalUris)
+        } else {
+            repeatImageView.setBackgroundResource(R.drawable.onbtn)
+            repeatMode = true
+            play(originalUris)
+        }
     }
 
     fun shareBtnOnClick(view: View) {
@@ -297,11 +343,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         mp?.setOnCompletionListener(MediaPlayer.OnCompletionListener {
-            // TODO 26.02 #5 если репит включён то не нужно переходить к следующей
-            songIndex++
-            if (songIndex >= uris!!.size) songIndex = 0
-            mp?.stop()
-            play(uris!![songIndex])
+            // TODO 26.02 #5 если репит включён то не нужно переходить к следующей ok
+            if(repeatMode == true) {
+                mp?.stop()
+                play(uris!![songIndex])
+            } else {
+                songIndex++
+                if (songIndex >= uris!!.size) songIndex = 0
+                mp?.stop()
+                play(uris!![songIndex])
+            }
+
         })
 
         val songInfo = getSongInfo(this, uri)
@@ -336,6 +388,30 @@ class MainActivity : AppCompatActivity() {
             intent,
             REQUEST_CODE
         )
+    }
+
+
+
+    class Adapter(private var songInfos: List<SongInfo>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+
+        class ViewHolder(itemView: ViewGroup) : RecyclerView.ViewHolder(itemView) {
+            val titleSongTextView: TextView = itemView.findViewById(R.id.titleSongTextViewInList)
+            val titleArtistTextView: TextView = itemView.findViewById(R.id.titleArtistTextViewInList)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val songView = LayoutInflater.from(parent.context).inflate(R.layout.layout_song, parent, false) as ViewGroup
+            return ViewHolder(songView)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val songInfo = songInfos[position]
+            holder.titleSongTextView.text = songInfo.title
+            holder.titleArtistTextView.text = songInfo.artist
+
+        }
+
+        override fun getItemCount() = songInfos.size
     }
 
 }

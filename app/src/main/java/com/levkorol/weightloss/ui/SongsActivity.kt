@@ -12,12 +12,12 @@ import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.util.getSongInfo
 
-// TODO 22.02 #4 =(
+
 class SongsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_songs)
+            //   setContentView(R.layout.activity_songs)
 
         @Suppress("UNCHECKED_CAST")
         val uris = intent.getSerializableExtra("as") as ArrayList<Uri>
