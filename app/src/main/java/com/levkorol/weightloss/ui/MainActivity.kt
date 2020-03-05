@@ -53,11 +53,9 @@ class MainActivity : AppCompatActivity() {
     private var originalUris: List<Uri>? = null
     private var uris: List<Uri>? = null
     private var songIndex: Int = -1
-    private var currentUri: List<Uri>? = null
 
-    private var shuffleMode: Boolean = false
+    var shuffleMode: Boolean = false
     private var repeatMode: Boolean = false
-
 
     private val adapter = Adapter(arrayListOf())
 
@@ -80,21 +78,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        load()
 
-        @Suppress("UNCHECKED_CAST")
-        //     val uris = intent.getSerializableExtra("as") as ArrayList<Uri>
-        //  val songInfos: ArrayList<SongInfo> = arrayListOf()
-//        for (uri in uris) {
-//            val songs = getSongInfo(this, uri)
-//            songInfos.add(songs!!)
-//        }
         val recyclerView: RecyclerView = findViewById(R.id.my_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        //  val adapterr =  Adapter(arrayListOf())
         recyclerView.adapter = adapter
 
-
-        //Volume Bar
         volumeBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
@@ -109,11 +98,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             }
         )
 
@@ -129,11 +115,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             }
         )
 
@@ -150,6 +133,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }).start()
+
+        play(uris)
     }
 
 
@@ -181,6 +166,9 @@ class MainActivity : AppCompatActivity() {
                 if (resultCode == RESULT_OK) {
                     val uris = mutableListOf<Uri>()
                     if (intent?.data != null) {
+                        // TODO 03.05 тут у нас используется метод play(Uri) а это неправильно
+                        // TODO       нужно этот uri добавиться в uris который создан выше
+                        // TODO       и вызвать play(List<Uri>)
                         val uri = intent?.data
                         play(uri)
                     } else {
@@ -243,14 +231,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun listSongs(v: View) {
-        val height = songsLayout.measuredHeight
-        if (songsLayout.translationY == 0f) {
-            songsLayout.translationY = -height.toFloat()
-        } else {
-            songsLayout.translationY = 0f
-        }
-        weightLossModeLayout.translationY = songsLayout.translationY + dp(50)
-
         if (uris == null) {
             Toast.makeText(
                 this, "add your songs",
@@ -269,16 +249,24 @@ class MainActivity : AppCompatActivity() {
             adapter.songInfos = songInfos
             adapter.notifyDataSetChanged()
         }
+
+        val handler = Handler()
+        handler.postDelayed({
+            val height = songsLayout.measuredHeight
+            if (songsLayout.translationY == 0f) {
+                songsLayout.translationY = -height.toFloat()
+            } else {
+                songsLayout.translationY = 0f
+            }
+            weightLossModeLayout.translationY = songsLayout.translationY + dp(50)
+        }, 200)
     }
 
     private fun play(uris: List<Uri>?) {
         mp?.release()
         mp = null
         this.uris = uris
-        if (uris != null && uris.size >= 0) {
-            songIndex = 0
-            play(uris[songIndex])
-        }
+        play(0)
     }
 
     fun playNextBtnOnClick(view: View) {
@@ -286,7 +274,7 @@ class MainActivity : AppCompatActivity() {
             songIndex++
             if (songIndex >= uris!!.size) songIndex = 0
             mp?.stop()
-            play(uris!![songIndex])
+            play(songIndex)
         }
     }
 
@@ -297,7 +285,7 @@ class MainActivity : AppCompatActivity() {
             songIndex--
             if (songIndex >= uris!!.size) songIndex.minus(1)
             mp?.stop()
-            play(uris!![songIndex])
+            play(songIndex)
         }
     }
 
@@ -337,8 +325,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(shareIntent, "send to"))
     }
 
-    private fun play(uri: Uri) {
-        if ( uris != null && uris!!.size >= 0) {
+    private fun play(songIndex: Int) {
+        // TODO 03.05 добавить проверку что номер песни в плейлисте songIndex будет корректный
+        // TODO       то есть например -1 - не ок индекс
+        // TODO       и если в плейлисте 5 песен, индекс = 10 - тоже не ок
+        if (uris != null && uris!!.isNotEmpty()) {
+            this.songIndex = songIndex
+            adapter.notifyDataSetChanged()
+            val uri = uris!![songIndex]
             mp = MediaPlayer().apply {
                 setDataSource(applicationContext, uri)
                 //isLooping = true
@@ -356,19 +350,18 @@ class MainActivity : AppCompatActivity() {
                 positionBar.max = totalTime
             }
 
-            mp?.setOnCompletionListener(MediaPlayer.OnCompletionListener {
-
-                if (repeatMode == true) {
+            mp?.setOnCompletionListener {
+                if (repeatMode) {
                     mp?.stop()
-                    play(uris!![songIndex])
+                    play(songIndex)
                 } else {
-                    songIndex++
-                    if (songIndex >= uris!!.size) songIndex = 0
+                    this.songIndex++
+                    if (songIndex >= uris!!.size) this.songIndex = 0
                     mp?.stop()
-                    play(uris!![songIndex])
+                    play(songIndex)
                 }
 
-            })
+            }
 
             val songInfo = getSongInfo(this, uri)
             if (songInfo == null) {
@@ -406,12 +399,6 @@ class MainActivity : AppCompatActivity() {
             intent,
             REQUEST_CODE
         )
-    }
-
-    override fun onStart() {
-        super.onStart()
-        load()
-        play(uris)
     }
 
     override fun onPause() {
@@ -456,19 +443,31 @@ class MainActivity : AppCompatActivity() {
             holder.titleSongTextView.text = songInfo.title
             holder.titleArtistTextView.text = songInfo.artist
             holder.playImageView.setOnClickListener {
-                if(currentUri == uris) {
-                    playImageView.setBackgroundResource(R.drawable.pause)
-                } else {
-                    playImageView.setBackgroundResource(R.drawable.playbutton)
-                }
-                // TODO 26.02 менять иконку у кнопки
-
                 mp?.stop()
                 play(songInfo.uri)
+            }
+            if(getCurrentUri() == songInfo.uri) {
+                holder.playImageView.setBackgroundResource(R.drawable.pause)
+            } else {
+                holder.playImageView.setBackgroundResource(R.drawable.playbutton)
             }
         }
 
         override fun getItemCount() = songInfos.size
+    }
+
+    private fun play(uri: Uri) {
+        val i = uris?.indexOf(uri) ?: -1
+        play(i)
+    }
+
+    private fun getCurrentUri(): Uri? {
+        // TODO 03.05 тут тоже проверочка нужна вдруг мы вызовем uris[10] для плейлиста в 5 песен илл uris[-1]
+        return if (uris == null) {
+            null
+        } else {
+            uris!![songIndex]
+        }
     }
 
 }

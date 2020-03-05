@@ -78,13 +78,16 @@
         android:layout_height="wrap_content"
         android:paddingTop="100dp"
         android:background="@drawable/backgroundlistpanel"
-        android:layout_alignTop="@id/playerPanelLayout">
+        android:layout_alignTop="@id/playerPanelLayout"
+        android:paddingBottom="16dp"
+        tools:translationY="-150dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout_height="50dp"/>
 
     </FrameLayout>
 
@@ -323,35 +326,14 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ImageView
         android:id="@+id/weightLossModeLayout"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@id/songsLayout"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_weight_loss_button"
+        android:background="@drawable/ovalbutton"
         android:orientation="vertical"
-        android:translationY="50dp">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:gravity="center|top"
-            android:text="\nWeight\nLoss Mode\n"
-            android:textAllCaps="true"
-            android:textColor="#FF5C47"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:gravity="center|top"
-            android:text="Off"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:translationY="50dp" />
 
 </RelativeLayout>
