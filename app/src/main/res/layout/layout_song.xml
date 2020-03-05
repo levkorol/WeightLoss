@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:background="@color/Orange">
+
+
 
     <TextView
         android:layout_marginLeft="30dp"
@@ -13,8 +15,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="20sp"
-        tools:text="Yesterdayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        android:textSize="18sp"
+        tools:text="Yesterday"
         />
 
 
@@ -24,18 +26,25 @@
         android:id="@+id/titleArtistTextViewInList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/titleSongTextViewInList"
         android:textColor="@color/white"
         android:text="Artist" />
 
+
+
+
+    <ImageView
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="17dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/playImageView"
+        android:src="@drawable/playbutton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/line"/>
-
-    <ImageView
-        android:id="@+id/playImageView"
-        android:src="@drawable/playbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+</RelativeLayout>

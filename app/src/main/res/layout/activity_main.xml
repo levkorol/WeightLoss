@@ -70,14 +70,14 @@
 
     </LinearLayout>
 
-    <!-- TODO 22.02 #2 -->
+
 
     <FrameLayout
         android:id="@+id/songsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="100dp"
-        android:background="@drawable/backgroundplayerlist"
+        android:background="@drawable/backgroundlistpanel"
         android:layout_alignTop="@id/playerPanelLayout">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -93,7 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/backgroundplayer"
+        android:background="@drawable/backgpanelpleer"
+        android:minHeight="300dp"
         android:orientation="vertical">
 
         <ImageButton
@@ -103,10 +104,10 @@
             android:layout_gravity="bottom|right"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/playlist"
+            android:background="?selectableItemBackgroundBorderless"
             android:onClick="listSongs"
             android:padding="10dp"
-            android:background="?selectableItemBackgroundBorderless"/>
+            android:src="@drawable/playlist" />
 
 
         <LinearLayout
@@ -153,18 +154,19 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/prevSong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="?selectableItemBackgroundBorderless"
+
+                    android:onClick="playPrevBtnOnClick"
                     android:padding="8dp"
                     android:src="@drawable/leftarrow"
-                    android:onClick="playPrevBtnOnClick"
-                    android:background="?selectableItemBackgroundBorderless"
 
                     />
 
@@ -174,6 +176,7 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1">
 
                 <ImageButton
@@ -188,63 +191,62 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/prevBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/rightarrow"
-                    android:onClick="playNextBtnOnClick"
-                    android:padding="8dp"
+                    android:layout_gravity="center"
+
                     android:background="?selectableItemBackgroundBorderless"
+                    android:onClick="playNextBtnOnClick"
+
+                    android:padding="8dp"
+                    android:src="@drawable/rightarrow"
                     tools:ignore="OnClick" />
             </FrameLayout>
 
         </LinearLayout>
 
 
-
-
         <RelativeLayout
             android:id="@+id/rl"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
 
             <SeekBar
-                android:layout_marginTop="20dp"
                 android:id="@+id/positionBar"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:paddingStart="6dp"
-                android:paddingEnd="6dp"
-                />
+                android:paddingEnd="6dp" />
 
             <TextView
-                android:layout_alignLeft="@id/positionBar"
-                android:layout_alignParentTop="true"
                 android:id="@+id/elapsedTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/positionBar"
+                android:layout_alignParentTop="true"
                 android:text="0:00"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <TextView
-                android:layout_alignRight="@id/positionBar"
                 android:id="@+id/remainingTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignRight="@id/positionBar"
                 android:text="0:00"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -262,11 +264,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/share"
-                    android:padding="8dp"
-                    android:onClick="shareBtnOnClick"
                     android:background="?selectableItemBackgroundBorderless"
-                    />
+                    android:onClick="shareBtnOnClick"
+                    android:padding="8dp"
+                    android:src="@drawable/share" />
 
             </FrameLayout>
 
@@ -277,13 +278,13 @@
 
                 <ImageView
                     android:id="@+id/repeatImageView"
-                    android:padding="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/repeat2"
-                    android:onClick="repeatBtnOnClick" />
+                    android:onClick="repeatBtnOnClick"
+                    android:padding="8dp"
+                    android:src="@drawable/repeat2" />
             </FrameLayout>
 
             <FrameLayout
@@ -300,8 +301,7 @@
                     android:layout_weight="1"
                     android:onClick="shufleBtnOnClick"
                     android:padding="8dp"
-                    android:src="@drawable/shuffle"
-                    />
+                    android:src="@drawable/shuffle" />
             </FrameLayout>
 
             <FrameLayout
@@ -310,12 +310,12 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:background="?selectableItemBackgroundBorderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:background="?selectableItemBackgroundBorderless"
                     android:src="@drawable/more" />
             </FrameLayout>
 

@@ -5,17 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.levkorol.weightloss.R
+import com.levkorol.weightloss.model.SongInfo
 
-class LoginPasswordActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_password)
+        setContentView(R.layout.activity_profile)
     }
 
-    fun goToRegistr(v: View){
-        val intent = Intent(this@LoginPasswordActivity, RegistrationActivity::class.java)
+    fun goToMenu(v: View) {
+        val intent = Intent(this, LoginPasswordActivity::class.java)
+//        val songInfos: ArrayList<SongInfo> = arrayListOf()
+//        intent.putExtra("as", songInfos)
         startActivity(intent)
     }
-
 }

@@ -29,6 +29,7 @@ import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_song.*
 
 
 // CTRL + ALT + L
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private var originalUris: List<Uri>? = null
     private var uris: List<Uri>? = null
     private var songIndex: Int = -1
+    private var currentUri: List<Uri>? = null
 
     private var shuffleMode: Boolean = false
     private var repeatMode: Boolean = false
@@ -103,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                     if (fromUser) {
                         var volumeNum = progress / 100.0f
                         mp?.setVolume(volumeNum, volumeNum)
-                        Log.v("WEIGHT-LOSS", "onProgressChanged: $volumeNum")
+                      //  Log.v("WEIGHT-LOSS", "onProgressChanged: $volumeNum")
                     }
                 }
 
@@ -202,19 +204,20 @@ class MainActivity : AppCompatActivity() {
 
     fun playBtnOnClick(v: View) {
         if (mp?.isPlaying == true) {
-            //Stop
             mp?.pause()
-            playBtn.setBackgroundResource(R.drawable.playbutton) // TODO 26.02 убрать
         } else {
-            //Start
             mp?.start()
-            playBtn.setBackgroundResource(R.drawable.pause) // TODO 26.02 убрать
         }
         updatePlayButton()
     }
 
     fun updatePlayButton() {
-        // TODO 26.02 дописать = если песня проигрывается то иконка паузы иначе иконка плея
+        if(mp?.isPlaying == true) {
+            playBtn.setBackgroundResource(R.drawable.pause)
+        } else {
+            playBtn.setBackgroundResource(R.drawable.playbutton)
+        }
+
     }
 
 
@@ -233,7 +236,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToMenu(v: View) {
-        val intent = Intent(this@MainActivity, LoginPasswordActivity::class.java)
+        val intent = Intent(this@MainActivity, ProfileActivity::class.java)
         val songInfos: ArrayList<SongInfo> = arrayListOf()
         intent.putExtra("as", songInfos)
         startActivity(intent)
@@ -249,8 +252,12 @@ class MainActivity : AppCompatActivity() {
         weightLossModeLayout.translationY = songsLayout.translationY + dp(50)
 
         if (uris == null) {
-            // TODO 26.02 создать список пустых SongInfo
-            // TODO       либо тупо TextView c подсказкой
+            Toast.makeText(
+                this, "add your songs",
+                Toast.LENGTH_LONG
+            ).show()
+
+            // TODO  пока тоаст наверное нужна кнопка добавления песен
 //            adapter.songInfos = songInfos
 //            adapter.notifyDataSetChanged()
         } else {
@@ -268,7 +275,7 @@ class MainActivity : AppCompatActivity() {
         mp?.release()
         mp = null
         this.uris = uris
-        if (uris != null) {
+        if (uris != null && uris.size >= 0) {
             songIndex = 0
             play(uris[songIndex])
         }
@@ -294,7 +301,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // TODO 26.02 #4c меняем фон у кнопки ok
+
     fun shufleBtnOnClick(view: View) {
         mp?.stop()
         if (shuffleMode) {
@@ -308,7 +315,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // TODO 26.02 #5 по аналогии с shuffle только тут просто меняем флаг и меняем фон у кнопки ok
+
     fun repeatBtnOnClick(view: View) {
         mp?.stop()
         if (repeatMode) {
@@ -331,52 +338,56 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun play(uri: Uri) {
-        mp = MediaPlayer().apply {
-            setDataSource(applicationContext, uri)
-            //isLooping = true
-            setVolume(0.5f, 0.5f)
-            try {
-                prepareAsync()
-            } catch (e: Exception) {
+        if ( uris != null && uris!!.size >= 0) {
+            mp = MediaPlayer().apply {
+                setDataSource(applicationContext, uri)
+                //isLooping = true
+                setVolume(0.5f, 0.5f)
+                try {
+                    prepareAsync()
+                } catch (e: Exception) {
+                }
             }
-        }
 
-        mp?.setOnPreparedListener { mp ->
-            mp.start()
-            updatePlayButton()
-            totalTime = mp.duration
-            positionBar.max = totalTime
-        }
+            mp?.setOnPreparedListener { mp ->
+                mp.start()
+                updatePlayButton()
+                totalTime = mp.duration
+                positionBar.max = totalTime
+            }
 
-        mp?.setOnCompletionListener(MediaPlayer.OnCompletionListener {
-            // TODO 26.02 #5 если репит включён то не нужно переходить к следующей ok
-            if (repeatMode == true) {
-                mp?.stop()
-                play(uris!![songIndex])
+            mp?.setOnCompletionListener(MediaPlayer.OnCompletionListener {
+
+                if (repeatMode == true) {
+                    mp?.stop()
+                    play(uris!![songIndex])
+                } else {
+                    songIndex++
+                    if (songIndex >= uris!!.size) songIndex = 0
+                    mp?.stop()
+                    play(uris!![songIndex])
+                }
+
+            })
+
+            val songInfo = getSongInfo(this, uri)
+            if (songInfo == null) {
+                Toast.makeText(
+                    this, "ne udalos zagruzit pesn",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
-                songIndex++
-                if (songIndex >= uris!!.size) songIndex = 0
-                mp?.stop()
-                play(uris!![songIndex])
+                Log.v("WEIGHT-LOSS", "play: $songInfo")
+                titleSongTextView.text = songInfo.title
+                titleArtistTextView.text = songInfo.artist
+                if (songInfo.albumBitmap == null) {
+                    albumImageView.setImageResource(R.drawable.photoalbum)
+                } else {
+                    albumImageView.setImageBitmap(songInfo.albumBitmap)
+                }
             }
-
-        })
-
-        val songInfo = getSongInfo(this, uri)
-        if (songInfo == null) {
-            Toast.makeText(
-                this, "ne udalos zagruzit pesn",
-                Toast.LENGTH_LONG
-            ).show()
         } else {
-            Log.v("WEIGHT-LOSS", "play: $songInfo")
-            titleSongTextView.text = songInfo.title
-            titleArtistTextView.text = songInfo.artist
-            if (songInfo.albumBitmap == null) {
-                albumImageView.setImageResource(R.drawable.photoalbum)
-            } else {
-                albumImageView.setImageBitmap(songInfo.albumBitmap)
-            }
+            return
         }
     }
 
@@ -397,8 +408,21 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    override fun onStart() {
+        super.onStart()
+        load()
+        play(uris)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        save()
+    }
+
+
     // TODO 26.02 вызвать метод при сворачивании
     private fun save() {
+     //   Log.v("WEIGHT-LOSS", "save: $uris")
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
         if (uris != null) { // List<Uri> -> Set<String>
             val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
@@ -432,7 +456,13 @@ class MainActivity : AppCompatActivity() {
             holder.titleSongTextView.text = songInfo.title
             holder.titleArtistTextView.text = songInfo.artist
             holder.playImageView.setOnClickListener {
+                if(currentUri == uris) {
+                    playImageView.setBackgroundResource(R.drawable.pause)
+                } else {
+                    playImageView.setBackgroundResource(R.drawable.playbutton)
+                }
                 // TODO 26.02 менять иконку у кнопки
+
                 mp?.stop()
                 play(songInfo.uri)
             }

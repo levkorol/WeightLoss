@@ -2,4 +2,5 @@
 <resources>
     <dimen name="test_dimen">20dp</dimen>
     <dimen name="super_left_padding">30dp</dimen>
+    <dimen name="panel_size">350dp</dimen>
 </resources>
