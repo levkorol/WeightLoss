@@ -22,6 +22,8 @@
             android:onClick="addSongs" />
 
         <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="15dp"
             android:id="@+id/burgerButton"
             android:padding="8dp"
             android:background="?selectableItemBackgroundBorderless"
@@ -78,8 +80,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="100dp"
         android:background="@drawable/backgroundlistpanel"
-        android:layout_alignTop="@id/playerPanelLayout"
-        android:paddingBottom="16dp"
+        android:layout_alignTop="@id/profilPanelLayout"
+        android:paddingBottom="20dp"
         tools:translationY="-150dp">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -92,7 +94,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/playerPanelLayout"
+        android:id="@+id/profilPanelLayout"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_alignParentBottom="true"
@@ -307,20 +309,7 @@
                     android:src="@drawable/shuffle" />
             </FrameLayout>
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:src="@drawable/more" />
-            </FrameLayout>
 
         </LinearLayout>
 
@@ -332,7 +321,7 @@
         android:layout_height="100dp"
         android:layout_above="@id/songsLayout"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/ovalbutton"
+        android:background="@drawable/weightlossbtnbig"
         android:orientation="vertical"
         android:translationY="50dp" />
 

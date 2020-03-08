@@ -15,14 +15,17 @@ import android.util.Log
 import com.levkorol.weightloss.model.SongInfo
 
 fun getSongInfo(context: Context, songUri: Uri): SongInfo? {
-    val retriever = MediaMetadataRetriever()
-    retriever.setDataSource(context, songUri)
-    return SongInfo(
-        uri = songUri,
-        title = retriever.extractMetadata(METADATA_KEY_TITLE),
-        artist = retriever.extractMetadata(METADATA_KEY_ARTIST),
-        albumBitmap = toBitmap(retriever.embeddedPicture)
-    )
+    try {
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(context, songUri)
+        return SongInfo(
+            uri = songUri,
+            title = retriever.extractMetadata(METADATA_KEY_TITLE),
+            artist = retriever.extractMetadata(METADATA_KEY_ARTIST),
+            albumBitmap = toBitmap(retriever.embeddedPicture)
+        )
+    }catch (e: Exception) { }
+return null
 }
 
 fun toBitmap(bytes: ByteArray?): Bitmap? {

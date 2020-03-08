@@ -3,27 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/testAction"
-        android:title="Item"
-        android:icon="@drawable/ic_invite_friends"/>
+        android:id="@+id/profileItem"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"
+
+        />
 
     <item
-        android:title="Item"
-        android:icon="@drawable/ic_invite_friends"/>
+        android:id="@+id/pleerItem"
+        android:title="Player"
+        android:icon="@drawable/ic_music"/>
 
     <item
-        android:title="Item"
-        android:icon="@drawable/ic_invite_friends"/>
+        android:id="@+id/premiumItem"
+        android:title="Go Premium"
+        android:icon="@drawable/ic_go_premium"/>
 
     <item
-        android:title="Item"
-        android:icon="@drawable/ic_invite_friends"/>
+        android:id="@+id/inviteFriendsItem"
+        android:title="Invite friends"
+        android:icon="@drawable/ic_invate_friends"/>
 
     <item
-        android:title="Item"
-        android:icon="@drawable/ic_invite_friends"/>
+        android:id="@+id/instructionsItem"
+        android:title="Instructions"
+        android:icon="@drawable/ic_instructions"/>
 
     <item
-        android:title="Item"
-        android:icon="@drawable/ic_invite_friends"/>
+        android:id="@+id/otherAppsItem"
+        android:title="Other apps"
+        android:icon="@drawable/ic_other_apps"/>
+    <item
+        android:id="@+id/settingsItem"
+        android:title="Settings"
+        android:icon="@drawable/ic_setting"/>
 </menu>

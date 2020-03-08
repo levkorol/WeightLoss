@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
                     if (fromUser) {
                         var volumeNum = progress / 100.0f
                         mp?.setVolume(volumeNum, volumeNum)
-                      //  Log.v("WEIGHT-LOSS", "onProgressChanged: $volumeNum")
                     }
                 }
 
@@ -166,11 +165,9 @@ class MainActivity : AppCompatActivity() {
                 if (resultCode == RESULT_OK) {
                     val uris = mutableListOf<Uri>()
                     if (intent?.data != null) {
-                        // TODO 03.05 тут у нас используется метод play(Uri) а это неправильно
-                        // TODO       нужно этот uri добавиться в uris который создан выше
-                        // TODO       и вызвать play(List<Uri>)
-                        val uri = intent?.data
-                        play(uri)
+                        val uri = intent.data
+                        uris.add(uri)
+                        play(uris)
                     } else {
                         val clipData = intent?.clipData
                         if (clipData != null) {
@@ -236,8 +233,6 @@ class MainActivity : AppCompatActivity() {
                 this, "add your songs",
                 Toast.LENGTH_LONG
             ).show()
-
-            // TODO  пока тоаст наверное нужна кнопка добавления песен
 //            adapter.songInfos = songInfos
 //            adapter.notifyDataSetChanged()
         } else {
@@ -325,63 +320,62 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(shareIntent, "send to"))
     }
 
-    private fun play(songIndex: Int) {
-        // TODO 03.05 добавить проверку что номер песни в плейлисте songIndex будет корректный
-        // TODO       то есть например -1 - не ок индекс
-        // TODO       и если в плейлисте 5 песен, индекс = 10 - тоже не ок
-        if (uris != null && uris!!.isNotEmpty()) {
-            this.songIndex = songIndex
-            adapter.notifyDataSetChanged()
-            val uri = uris!![songIndex]
-            mp = MediaPlayer().apply {
-                setDataSource(applicationContext, uri)
-                //isLooping = true
-                setVolume(0.5f, 0.5f)
-                try {
-                    prepareAsync()
-                } catch (e: Exception) {
+    private fun play (songIndex: Int) {
+        try {
+            if (uris != null && uris!!.isNotEmpty() && songIndex >= 0 && songIndex < uris!!.size)  {
+                this.songIndex = songIndex
+                adapter.notifyDataSetChanged()
+                val uri = uris!![songIndex]
+                mp = MediaPlayer().apply {
+                    setDataSource(applicationContext, uri)
+                    //isLooping = true
+                    setVolume(0.5f, 0.5f)
+                    try {
+
+                        prepareAsync()
+                    } catch (e: Exception) { }
                 }
-            }
 
-            mp?.setOnPreparedListener { mp ->
-                mp.start()
-                updatePlayButton()
-                totalTime = mp.duration
-                positionBar.max = totalTime
-            }
+                mp?.setOnPreparedListener { mp ->
+                    mp.start()
+                    updatePlayButton()
+                    totalTime = mp.duration
+                    positionBar.max = totalTime
+                }
 
-            mp?.setOnCompletionListener {
-                if (repeatMode) {
-                    mp?.stop()
-                    play(songIndex)
+                mp?.setOnCompletionListener {
+                    if (repeatMode) {
+                        mp?.stop()
+                        play(songIndex)
+                    } else {
+                        this.songIndex++
+                        if (songIndex >= uris!!.size) this.songIndex = 0
+                        mp?.stop()
+                        play(songIndex)
+                    }
+
+                }
+
+                val songInfo = getSongInfo(this, uri)
+                if (songInfo == null) {
+                    Toast.makeText(
+                        this, "ne udalos zagruzit pesn",
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
-                    this.songIndex++
-                    if (songIndex >= uris!!.size) this.songIndex = 0
-                    mp?.stop()
-                    play(songIndex)
+                    Log.v("WEIGHT-LOSS", "play: $songInfo")
+                    titleSongTextView.text = songInfo.title
+                    titleArtistTextView.text = songInfo.artist
+                    if (songInfo.albumBitmap == null) {
+                        albumImageView.setImageResource(R.drawable.photoalbum)
+                    } else {
+                        albumImageView.setImageBitmap(songInfo.albumBitmap)
+                    }
                 }
-
-            }
-
-            val songInfo = getSongInfo(this, uri)
-            if (songInfo == null) {
-                Toast.makeText(
-                    this, "ne udalos zagruzit pesn",
-                    Toast.LENGTH_LONG
-                ).show()
             } else {
-                Log.v("WEIGHT-LOSS", "play: $songInfo")
-                titleSongTextView.text = songInfo.title
-                titleArtistTextView.text = songInfo.artist
-                if (songInfo.albumBitmap == null) {
-                    albumImageView.setImageResource(R.drawable.photoalbum)
-                } else {
-                    albumImageView.setImageBitmap(songInfo.albumBitmap)
-                }
+                return
             }
-        } else {
-            return
-        }
+        } catch (e: Exception) { }
     }
 
     private fun createTimeLabel(time: Int): String {
@@ -407,9 +401,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // TODO 26.02 вызвать метод при сворачивании
+    // метод при сворачивании
     private fun save() {
-     //   Log.v("WEIGHT-LOSS", "save: $uris")
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
         if (uris != null) { // List<Uri> -> Set<String>
             val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
@@ -417,7 +410,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // TODO 26.02 вызвать метод при старте
+    //  метод при старте
     private fun load() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val stringsSet = sp.getStringSet("PLAYLIST", setOf()) // Set<String> -> List<Uri>
@@ -462,8 +455,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCurrentUri(): Uri? {
-        // TODO 03.05 тут тоже проверочка нужна вдруг мы вызовем uris[10] для плейлиста в 5 песен илл uris[-1]
-        return if (uris == null) {
+        return if (uris == null && songIndex >= 0 && songIndex < uris!!.size) {
             null
         } else {
             uris!![songIndex]

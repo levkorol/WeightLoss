@@ -9,7 +9,8 @@
             <gradient android:type="linear"
                 android:startColor="@color/red"
                 android:centerColor="@color/red"
-                android:endColor="@color/Orange"/>
+                android:endColor="@color/Orange"
+                />
         </shape>
     </item>
 </layer-list>

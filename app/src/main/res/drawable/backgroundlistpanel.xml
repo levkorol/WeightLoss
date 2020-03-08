@@ -5,11 +5,8 @@
         <shape android:shape="rectangle">
 
             <corners android:topLeftRadius="12dp" android:topRightRadius="12dp" />
-            <solid android:color="@color/white" />
-            <gradient android:type="linear"
-                android:startColor="@color/red"
-                android:centerColor="@color/red"
-                android:endColor="@color/Orange"/>
+            <solid android:color="@color/coral" />
+
         </shape>
     </item>
 </layer-list>
