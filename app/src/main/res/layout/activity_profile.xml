@@ -50,11 +50,10 @@
             app:civ_border_color="@color/white"/>
 
         <com.google.android.material.navigation.NavigationView
-
             app:itemIconTint ="@color/white"
             app:itemTextColor ="@color/white"
             app:itemBackground="@drawable/line_items"
-            android:id="@+id/navigation_header_container"
+            android:id="@+id/navigationView"
             android:background="@drawable/bacgrounduglyest"
             android:layout_below="@id/photoImageView"
             android:layout_width="match_parent"

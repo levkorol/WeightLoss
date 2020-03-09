@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/backgroundregistr">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,9 +14,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/backgroundregistr">
-
+            android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/photoImageView"
@@ -28,6 +26,14 @@
                 android:src="@drawable/photo_profile"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_name"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="50dp"
+                android:tint="@android:color/white"/>
 
             <RadioGroup
                 android:id="@+id/radoigroup"
@@ -71,23 +77,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <android.support.design.widget.TextInputLayout
-
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description">
+                android:hint="Description" >
+
+            </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="hint" />
+                    android:inputType="textPassword"
+                    android:text="PRIVETIK"
+                    />
 
-            </android.support.design.widget.TextInputLayout>
-
-        </RelativeLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
 
     </RelativeLayout>
-</LinearLayout>
+</ScrollView>

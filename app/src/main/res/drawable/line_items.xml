@@ -8,10 +8,10 @@
             </solid>
         </shape>
     </item>
-    <item android:gravity="bottom" >
+    <item android:gravity="bottom" android:start="20dp" >
         <shape android:shape="rectangle" >
-            <size  android:height="2dp" />
-            <stroke android:color="@color/white"/>
+            <size  android:height="1dp" />
+            <solid android:color="@android:color/white"/>
         </shape>
     </item>
 </layer-list>

@@ -61,23 +61,33 @@
     </FrameLayout>
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@drawable/button"
+        android:gravity="center_vertical"
         android:layout_gravity="center">
 
-        <Button
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_name"
+            android:tint="@android:color/white" />
+
+        <TextView
             android:onClick="signUpWithEmail"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button"
             android:text="Sign Up with email"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
 
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>

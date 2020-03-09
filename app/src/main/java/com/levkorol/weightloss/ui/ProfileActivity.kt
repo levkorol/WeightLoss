@@ -16,10 +16,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-
-      // navigation_header_container.setNavigationItemSelectedListener (this)
-
-
+        initializeNavigation()
     }
 
     fun goToMenu(v: View) {
@@ -27,6 +24,17 @@ class ProfileActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun initializeNavigation() {
+        navigationView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.profileItem -> {
+                    // TODO
+                }
+                else -> {}
+            }
+            return@setNavigationItemSelectedListener true
+        }
+    }
 
 
 

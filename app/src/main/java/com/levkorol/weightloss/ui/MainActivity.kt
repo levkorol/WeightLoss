@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private var originalUris: List<Uri>? = null
     private var uris: List<Uri>? = null
     private var songIndex: Int = -1
+    private var playing: Boolean = false // флаг что песня играет
 
     var shuffleMode: Boolean = false
     private var repeatMode: Boolean = false
@@ -132,8 +133,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }).start()
-
-        play(uris)
     }
 
 
@@ -189,10 +188,13 @@ class MainActivity : AppCompatActivity() {
 
     fun playBtnOnClick(v: View) {
         if (mp?.isPlaying == true) {
+            playing = false
             mp?.pause()
         } else {
+            playing = true
             mp?.start()
         }
+        adapter.notifyDataSetChanged()
         updatePlayButton()
     }
 
@@ -249,7 +251,8 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed({
             val height = songsLayout.measuredHeight
             if (songsLayout.translationY == 0f) {
-                songsLayout.translationY = -height.toFloat()
+                val h = height.toFloat() - dp(20)
+                songsLayout.translationY = -h
             } else {
                 songsLayout.translationY = 0f
             }
@@ -304,11 +307,10 @@ class MainActivity : AppCompatActivity() {
         if (repeatMode) {
             repeatImageView.setBackgroundResource(R.drawable.offbtn)
             repeatMode = false
-            play(originalUris)
+            play(uris)
         } else {
             repeatImageView.setBackgroundResource(R.drawable.onbtn)
             repeatMode = true
-            play(originalUris)
         }
     }
 
@@ -407,6 +409,7 @@ class MainActivity : AppCompatActivity() {
         if (uris != null) { // List<Uri> -> Set<String>
             val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
             sp.edit().putStringSet("PLAYLIST", urisAsStrings.toSet()).apply()
+            // TODO сохранять индекс песни
         }
     }
 
@@ -415,6 +418,7 @@ class MainActivity : AppCompatActivity() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val stringsSet = sp.getStringSet("PLAYLIST", setOf()) // Set<String> -> List<Uri>
         uris = stringsSet.map { string -> Uri.parse(string) }.toList()
+        // TODO загружать сохранённый индекс песни
     }
 
     inner class Adapter(var songInfos: List<SongInfo>) :
@@ -439,7 +443,8 @@ class MainActivity : AppCompatActivity() {
                 mp?.stop()
                 play(songInfo.uri)
             }
-            if(getCurrentUri() == songInfo.uri) {
+            if(getCurrentUri() == songInfo.uri && playing) {
+                // TODO android:src - setImageResource
                 holder.playImageView.setBackgroundResource(R.drawable.pause)
             } else {
                 holder.playImageView.setBackgroundResource(R.drawable.playbutton)

@@ -6,6 +6,10 @@
         android:state_checked="true">
     </item>
     <item
-        android:drawable="@drawable/buttonmanwoman">
+        android:drawable="@drawable/bg_gender_selected"
+        android:state_selected="true">
+    </item>
+    <item
+        android:drawable="@android:color/transparent">
     </item>
 </selector>
