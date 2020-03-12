@@ -33,6 +33,7 @@ class ProfileUserActivity : AppCompatActivity() {
                 updateLayout(result.documents[0])
             }
             .addOnFailureListener { exception ->
+                // TODO отображать ошибку
                 Log.w(TAG, "Error getting documents.", exception)
             }
 

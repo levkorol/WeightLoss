@@ -40,15 +40,13 @@ class SignUpWithEmailActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // получение базовой информации о пользователе:
-                    val user = auth.currentUser
-                    Log.d(TAG, "createUserWithEmail:success: ${user?.displayName}, ${user?.email}")
-//                    if (imageUri != null) uploadPhoto(imageUri) // TODO сначала загружаем фото пользователя
-                    saveInfo() // TODO сохранить в Firestore дополнительную инофрмацию о пользователе
+                    Log.d(TAG, "createUserWithEmail>success: ${auth.currentUser?.email}")
+//                    if (imageUri != null) uploadPhoto(imageUri) // TODO загружаем фото (если есть) в хранилище
+                    saveInfo() // TODO сохраняем дополнительную информацию в базу данных
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Log.w(TAG, "createUserWithEmail>failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                    // TODO отображать подробную инфу об ошибке?
+                    // TODO подробная информация об ошибке
                 }
             }
     }
@@ -65,12 +63,12 @@ class SignUpWithEmailActivity : AppCompatActivity() {
         db.collection("users")
             .add(user)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                // TODO 2. переход к профилю
+                Log.d(TAG, "saveInfo>success: ${documentReference.id}")
+                // TODO открываем профиль
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-                // TODO отображать ошибку?
+                Log.w(TAG, "saveInfo>failure", e)
+                // TODO подробная информация об ошибке
             }
     }
 
@@ -78,7 +76,7 @@ class SignUpWithEmailActivity : AppCompatActivity() {
 //        val reference = storage.reference.child("images/${photoUri.lastPathSegment}") // "images/test1@gmail.com.jpg"
 //        val uploadTask = reference.putFile(photoUri)
 //        uploadTask.addOnFailureListener {
-//            // TODO отобразить ошибку
+//            // TODO подробная информация об ошибке
 //        }.addOnSuccessListener {
 //            firebaseImage = "images/${photoUri.lastPathSegment}"
 //        }
