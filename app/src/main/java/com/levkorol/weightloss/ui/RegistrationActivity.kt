@@ -1,5 +1,6 @@
 package com.levkorol.weightloss.ui
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +20,8 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     fun signUpWithFacebook(v: View) {
-
+        val intent = Intent(this, ProfileUserActivity::class.java)
+        startActivity(intent)
     }
     
     fun signUpWithTwitter(v: View) {

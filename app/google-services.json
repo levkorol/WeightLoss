@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "808171440551",
+    "firebase_url": "https://weightlossplayer-6abe9.firebaseio.com",
+    "project_id": "weightlossplayer-6abe9",
+    "storage_bucket": "weightlossplayer-6abe9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808171440551:android:83099a1ddd91ba8ac8ce82",
+        "android_client_info": {
+          "package_name": "com.levkorol.weightloss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808171440551-dfj64etgdq2fbs1ucq8p7j8dpqojfk72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWLA11dC9QjiX3nBiC7Bvcyj9UdC8gwnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808171440551-dfj64etgdq2fbs1ucq8p7j8dpqojfk72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

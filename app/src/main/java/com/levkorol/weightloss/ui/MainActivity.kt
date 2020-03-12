@@ -3,7 +3,6 @@ package com.levkorol.weightloss.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -29,7 +28,6 @@ import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_song.*
 
 
 // CTRL + ALT + L
@@ -45,6 +43,10 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val MY_PERMISSIONS_REQUEST = 1
         private const val REQUEST_CODE = 2
+
+        private const val SP_PLAYLIST = "PLAYLIST"
+
+        private const val NO_INDEX = -1 // -1 - типа не выбран индекс песни
     }
 
     private var mp: MediaPlayer? = null
@@ -52,8 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private var originalUris: List<Uri>? = null
     private var uris: List<Uri>? = null
-    private var songIndex: Int = -1
-    private var playing: Boolean = false // флаг что песня играет
+    private var songIndex: Int = NO_INDEX
 
     var shuffleMode: Boolean = false
     private var repeatMode: Boolean = false
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        load()
+        loadPreferences()
 
         val recyclerView: RecyclerView = findViewById(R.id.my_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     fromUser: Boolean
                 ) {
                     if (fromUser) {
-                        var volumeNum = progress / 100.0f
+                        val volumeNum = progress / 100.0f
                         mp?.setVolume(volumeNum, volumeNum)
                     }
                 }
@@ -133,11 +134,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }).start()
-
     }
 
+    override fun onResume() {
+        super.onResume()
+        load()
+    }
 
-    //zaprashivaet razrreshenie na chtenie faylov
+    override fun onPause() {
+        super.onPause()
+        savePreferences()
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -187,27 +195,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // CLICK-METHODS
+
     fun playBtnOnClick(v: View) {
         if (mp?.isPlaying == true) {
-            playing = false
             mp?.pause()
         } else {
-            playing = true
             mp?.start()
         }
         adapter.notifyDataSetChanged()
         updatePlayButton()
     }
-
-    fun updatePlayButton() {
-        if(mp?.isPlaying == true) {
-            playBtn.setBackgroundResource(R.drawable.pause)
-        } else {
-            playBtn.setBackgroundResource(R.drawable.playbutton)
-        }
-
-    }
-
 
     fun addSongs(v: View) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -261,23 +259,6 @@ class MainActivity : AppCompatActivity() {
         }, 200)
     }
 
-    private fun play(uris: List<Uri>?) {
-        mp?.release()
-        mp = null
-        this.uris = uris
-        play(0)
-    }
-
-    fun playNextBtnOnClick(view: View) {
-        if (uris != null) {
-            songIndex++
-            if (songIndex >= uris!!.size) songIndex = 0
-            mp?.stop()
-            play(songIndex)
-        }
-    }
-
-
     fun playPrevBtnOnClick(view: View) {
         if (songIndex == 0) songIndex++
         if (uris != null) {
@@ -287,7 +268,6 @@ class MainActivity : AppCompatActivity() {
             play(songIndex)
         }
     }
-
 
     fun shufleBtnOnClick(view: View) {
         mp?.stop()
@@ -302,32 +282,52 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     fun repeatBtnOnClick(view: View) {
-       // mp?.stop()
         if (repeatMode) {
             repeatImageView.setBackgroundResource(R.drawable.offbtn)
             repeatMode = false
-                   // play(uris)
         } else {
             repeatImageView.setBackgroundResource(R.drawable.onbtn)
             repeatMode = true
         }
     }
 
-
-
     fun premium(view: View) {
         val intent = Intent(this@MainActivity, PremiumActivity::class.java)
         startActivity(intent)
     }
 
-    private fun play (songIndex: Int) {
+    fun playNextBtnOnClick(view: View) {
+        if (uris != null) {
+            songIndex++
+            if (songIndex >= uris!!.size) songIndex = 0
+            mp?.stop()
+            play(songIndex)
+        }
+    }
+
+    // PRIVATE METHODS
+
+    private fun updatePlayButton() {
+        if(mp?.isPlaying == true) {
+            playBtn.setBackgroundResource(R.drawable.pause)
+        } else {
+            playBtn.setBackgroundResource(R.drawable.playbutton)
+        }
+
+    }
+
+    private fun load() {
+        Log.v("WEIGHT-LOSS", "load: $songIndex")
+        // TODO перенести сюда из play (который ниже) всё что связано с обновлением интерфейса информацией о песнях
+    }
+
+    private fun play(newSongIndex: Int) {
         try {
-            if (uris != null && uris!!.isNotEmpty() && songIndex >= 0 && songIndex < uris!!.size)  {
-                this.songIndex = songIndex
+            if (uris != null && uris!!.isNotEmpty() && newSongIndex >= 0 && newSongIndex < uris!!.size)  {
+                this.songIndex = newSongIndex
                 adapter.notifyDataSetChanged()
-                val uri = uris!![songIndex]
+                val uri = uris!![newSongIndex]
                 mp = MediaPlayer().apply {
                     setDataSource(applicationContext, uri)
                     //isLooping = true
@@ -348,12 +348,12 @@ class MainActivity : AppCompatActivity() {
                 mp?.setOnCompletionListener {
                     if (repeatMode) {
                         mp?.stop()
-                        play(songIndex)
+                        play(newSongIndex)
                     } else {
                         this.songIndex++
-                        if (songIndex >= uris!!.size) this.songIndex = 0
+                        if (this.songIndex >= uris!!.size) this.songIndex = 0
                         mp?.stop()
-                        play(songIndex)
+                        play(this.songIndex)
                     }
 
                 }
@@ -380,6 +380,18 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) { }
     }
 
+    private fun play(uris: List<Uri>?) {
+        mp?.release()
+        mp = null
+        this.uris = uris
+        play(0)
+    }
+
+    private fun play(uri: Uri) {
+        val i = uris?.indexOf(uri) ?: NO_INDEX
+        play(i)
+    }
+
     private fun createTimeLabel(time: Int): String {
         val min = time / 1000 / 60
         val sec = time / 1000 % 60
@@ -397,33 +409,31 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    override fun onPause() {
-        super.onPause()
-        save()
-    }
-
-
-    // метод при сворачивании
-    private fun save() {
+    private fun savePreferences() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
         if (uris != null) { // List<Uri> -> Set<String>
             val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
-            sp.edit().putStringSet("PLAYLIST", urisAsStrings.toSet()).apply()
-            // TODO сохранять индекс песни
-            val index: Int = songIndex
-            sp.edit().putInt("SONGINDEX", index).apply()
+            sp.edit()
+                .putStringSet(SP_PLAYLIST, urisAsStrings.toSet())
+                .putInt("SONGINDEX", songIndex)
+                .apply()
 
         }
     }
 
-    //  метод при старте
-    private fun load() {
+    private fun loadPreferences() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val stringsSet = sp.getStringSet("PLAYLIST", setOf()) // Set<String> -> List<Uri>
+        val stringsSet = sp.getStringSet(SP_PLAYLIST, setOf()) // Set<String> -> List<Uri>
         uris = stringsSet.map { string -> Uri.parse(string) }.toList()
-        // TODO загружать сохранённый индекс песни
-        val index = sp.getInt("SONGINDEX", Int.SIZE_BITS)
-        songIndex = index
+        songIndex = sp.getInt("SONGINDEX", NO_INDEX)
+    }
+
+    private fun getCurrentUri(): Uri? {
+        return if (uris == null  || songIndex > uris!!.size || songIndex < 0) {
+            null
+        } else {
+            uris!![songIndex]
+        }
     }
 
     inner class Adapter(var songInfos: List<SongInfo>) :
@@ -445,11 +455,11 @@ class MainActivity : AppCompatActivity() {
             holder.titleSongTextView.text = songInfo.title
             holder.titleArtistTextView.text = songInfo.artist
             holder.playImageView.setOnClickListener {
+                // TODO добавить: если песня проигрывается то стопим её иначе стартуем
                 mp?.stop()
                 play(songInfo.uri)
             }
-            if(getCurrentUri() == songInfo.uri && playing) {
-
+            if (getCurrentUri() == songInfo.uri && mp?.isPlaying == true) {
                 holder.playImageView.setImageResource(R.drawable.pause)
             } else {
                 holder.playImageView.setImageResource(R.drawable.playbutton)
@@ -457,19 +467,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItemCount() = songInfos.size
-    }
-
-    private fun play(uri: Uri) {
-        val i = uris?.indexOf(uri) ?: -1
-        play(i)
-    }
-
-    private fun getCurrentUri(): Uri? {
-        return if (uris == null  || songIndex > uris!!.size || songIndex < 0) {
-            null
-        } else {
-            uris!![songIndex]
-        }
     }
 
 }

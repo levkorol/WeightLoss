@@ -31,20 +31,19 @@
 
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/pick_photo_for_ava"
                 android:layout_marginStart="220dp"
                 android:layout_marginTop="100dp"
-               />
+                android:src="@drawable/pick_photo_for_ava" />
 
             <RadioGroup
                 android:id="@+id/radoigroup"
-                android:background="#20FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/photoImageView"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
+                android:background="#20FFFFFF"
                 android:orientation="horizontal">
 
 
@@ -53,10 +52,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:button="@android:color/transparent"
-                    android:text="Man"
-                    android:padding="6dp"
                     android:background="@drawable/button_selector"
+                    android:button="@android:color/transparent"
+                    android:padding="6dp"
+                    android:text="Man"
                     android:textAlignment="center"
                     android:textColor="@drawable/color_text" />
 
@@ -66,9 +65,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:padding="6dp"
                     android:background="@drawable/button_selector"
                     android:button="@android:color/transparent"
+                    android:padding="6dp"
                     android:text="Woman"
                     android:textAlignment="center"
                     android:textColor="@drawable/color_text" />
@@ -76,23 +75,22 @@
             </RadioGroup>
 
             <RelativeLayout
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/radoigroup"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="match_parent"
+                android:layout_below="@+id/radoigroup"
+                android:layout_marginTop="30dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputName"
-                    android:hint="Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    app:boxStrokeColor="@color/white"
-                    android:textColorHint="@color/white">
+                    android:hint="Name"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextName"
@@ -101,22 +99,21 @@
                         android:layout_gravity="start"
                         android:inputType="textPersonName"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white"
-                      />
+                        android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_below="@+id/inputName"
                     android:id="@+id/inputEmail"
-                    android:hint="E-mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/inputName"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    app:boxStrokeColor="@color/white"
-                    android:textColorHint="@color/white">
+                    android:hint="E-mail"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextEmail"
@@ -125,21 +122,20 @@
                         android:layout_gravity="start"
                         android:inputType="textEmailAddress"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white"
-                        />
+                        android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_below="@+id/inputEmail"
                     android:id="@+id/inputPassword"
-                    android:hint="Password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/inputEmail"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    app:boxStrokeColor="@color/white"
-                    android:textColorHint="@color/white">
+                    android:hint="Password"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextPassword"
@@ -148,22 +144,21 @@
                         android:layout_gravity="start"
                         android:inputType="textPassword"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white"
-                        />
+                        android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_below="@+id/inputPassword"
                     android:id="@+id/inputCountry"
-                    android:hint="Country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/inputPassword"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    app:boxStrokeColor="@color/white"
-                    android:textColorHint="@color/white">
+                    android:hint="Country"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextCountry"
@@ -172,21 +167,20 @@
                         android:layout_gravity="start"
                         android:inputType="text"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white"
-                        />
+                        android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_below="@+id/inputCountry"
                     android:id="@+id/inputData"
-                    android:hint="Date of birthd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/inputCountry"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    app:boxStrokeColor="@color/white"
-                    android:textColorHint="@color/white">
+                    android:hint="Date of birthd"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextData"
@@ -195,21 +189,19 @@
                         android:layout_gravity="start"
                         android:inputType="text"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/white"
-                        />
+                        android:textColor="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <Button
-
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
                     android:id="@+id/signUp"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_below="@+id/inputData"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginStart="60dp"
                     android:layout_marginTop="50dp"
+                    android:layout_marginEnd="60dp"
                     android:background="@drawable/button"
                     android:elevation="2dp"
                     android:text="Registration"
