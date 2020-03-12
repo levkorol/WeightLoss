@@ -23,7 +23,7 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/ic_burger_menu_background"
-            android:onClick="goToMenu"
+            android:onClick="goToPleer"
             android:padding="8dp"
             android:src="@drawable/burgermenuwhite" />
     </RelativeLayout>
@@ -32,8 +32,9 @@
     <RelativeLayout
         android:id="@+id/profilPanelLayout"
         android:layout_width="match_parent"
-        android:layout_height="595dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="65dp"
         android:background="@drawable/backgroundprofile"
         android:orientation="vertical">
 

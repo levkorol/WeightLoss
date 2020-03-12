@@ -133,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }).start()
+
     }
 
 
@@ -303,23 +304,22 @@ class MainActivity : AppCompatActivity() {
 
 
     fun repeatBtnOnClick(view: View) {
-        mp?.stop()
+       // mp?.stop()
         if (repeatMode) {
             repeatImageView.setBackgroundResource(R.drawable.offbtn)
             repeatMode = false
-            play(uris)
+                   // play(uris)
         } else {
             repeatImageView.setBackgroundResource(R.drawable.onbtn)
             repeatMode = true
         }
     }
 
-    fun shareBtnOnClick(view: View) {
-        val shareIntent = Intent()
-        shareIntent.action = Intent.ACTION_SEND
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "ali")
-        shareIntent.type = "text/plain"
-        startActivity(Intent.createChooser(shareIntent, "send to"))
+
+
+    fun premium(view: View) {
+        val intent = Intent(this@MainActivity, PremiumActivity::class.java)
+        startActivity(intent)
     }
 
     private fun play (songIndex: Int) {
@@ -410,6 +410,9 @@ class MainActivity : AppCompatActivity() {
             val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
             sp.edit().putStringSet("PLAYLIST", urisAsStrings.toSet()).apply()
             // TODO сохранять индекс песни
+            val index: Int = songIndex
+            sp.edit().putInt("SONGINDEX", index).apply()
+
         }
     }
 
@@ -419,6 +422,8 @@ class MainActivity : AppCompatActivity() {
         val stringsSet = sp.getStringSet("PLAYLIST", setOf()) // Set<String> -> List<Uri>
         uris = stringsSet.map { string -> Uri.parse(string) }.toList()
         // TODO загружать сохранённый индекс песни
+        val index = sp.getInt("SONGINDEX", Int.SIZE_BITS)
+        songIndex = index
     }
 
     inner class Adapter(var songInfos: List<SongInfo>) :
@@ -444,10 +449,10 @@ class MainActivity : AppCompatActivity() {
                 play(songInfo.uri)
             }
             if(getCurrentUri() == songInfo.uri && playing) {
-                // TODO android:src - setImageResource
-                holder.playImageView.setBackgroundResource(R.drawable.pause)
+
+                holder.playImageView.setImageResource(R.drawable.pause)
             } else {
-                holder.playImageView.setBackgroundResource(R.drawable.playbutton)
+                holder.playImageView.setImageResource(R.drawable.playbutton)
             }
         }
 
@@ -460,7 +465,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCurrentUri(): Uri? {
-        return if (uris == null && songIndex >= 0 && songIndex < uris!!.size) {
+        return if (uris == null  || songIndex > uris!!.size || songIndex < 0) {
             null
         } else {
             uris!![songIndex]

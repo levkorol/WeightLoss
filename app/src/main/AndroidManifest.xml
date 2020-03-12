@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.SignUpWithEmailActivity"></activity>
+        <activity android:name=".ui.InvateFriendsActivity"></activity>
+        <activity android:name=".ui.PremiumActivity" />
+        <activity android:name=".ui.SettingsActivity" />
+        <activity android:name=".ui.SignUpWithEmailActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.SongsActivity" />
         <activity android:name=".ui.RegistrationActivity" />

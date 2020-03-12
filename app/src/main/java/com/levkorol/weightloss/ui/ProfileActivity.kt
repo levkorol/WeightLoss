@@ -19,8 +19,8 @@ class ProfileActivity : AppCompatActivity() {
         initializeNavigation()
     }
 
-    fun goToMenu(v: View) {
-        val intent = Intent(this, LoginPasswordActivity::class.java)
+    fun goToPleer(v: View) {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
@@ -28,57 +28,47 @@ class ProfileActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.profileItem -> {
-                    // TODO
+                    val profileIntent = Intent(this, LoginPasswordActivity::class.java)
+                    profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(profileIntent)
                 }
-                else -> {}
+
+                R.id.pleerItem -> {
+                    val pleerIntent = Intent(this, MainActivity::class.java)
+                    pleerIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(pleerIntent)
+                }
+                R.id.premiumItem -> {
+                    val profileIntent = Intent(this, PremiumActivity::class.java)
+                    profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(profileIntent)
+                }
+                R.id.inviteFriendsItem -> {
+                    val profileIntent = Intent(this, InvateFriendsActivity::class.java)
+                    profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(profileIntent)
+                }
+                R.id.instructionsItem -> {
+                    val profileIntent = Intent(this, RegistrationActivity::class.java)
+                    profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(profileIntent)
+                }
+                R.id.otherAppsItem-> {
+                    val profileIntent = Intent(this, RegistrationActivity::class.java)
+                    profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(profileIntent)
+                }
+                R.id.settingsItem -> {
+                    val settingsIntent = Intent(this, SettingsActivity::class.java)
+                    settingsIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    startActivity(settingsIntent)
+                }
+                else -> {
+                }
             }
             return@setNavigationItemSelectedListener true
         }
     }
-
-
-
-
-
-
-//    private fun NavigationView.setNavigationItemSelectedListener(profileActivity: ProfileActivity) {
-//        when (it.itemId) {
-//            R.id.nav_achivment -> {
-//                val achivmentIntent = Intent(this, AchivmentActivity::class.java)
-//                achivmentIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(achivmentIntent)
-//            }
-//            R.id.nav_friends -> {
-//                val friendsIntent = Intent(this, FriendsActivity::class.java)
-//                friendsIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(friendsIntent)
-//            }
-//            R.id.nav_alarm -> {
-//                val alarmIntent = Intent(this, AlarmActivity::class.java)
-//                alarmIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(alarmIntent)
-//            }
-//            R.id.nav_myGoal -> {
-//                val myGoalIntent = Intent(this, MyGoalActivity::class.java)
-//                myGoalIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(myGoalIntent)
-//            }
-//            R.id.nav_notes -> {
-//                val notesIntent = Intent(this, NotesActivity::class.java)
-//                notesIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(notesIntent)
-//            }
-//            R.id.nav_schedule -> {
-//                val scheduleIntent = Intent(this, ScheduleActivity::class.java)
-//                scheduleIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-//                startActivity(scheduleIntent)
-//            }
-//
-//        }
-//
-//        drawer_layout.closeDrawer(GravityCompat.START)
-//        return true
-//    }
 }
 
 

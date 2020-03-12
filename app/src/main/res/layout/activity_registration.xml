@@ -21,61 +21,86 @@
 
 
 
-    <FrameLayout
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <Button
-            android:onClick="signUpWithFacebook"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button"
-            android:text="Sign Up with Facebook"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-
-</FrameLayout>
-
-
-    <FrameLayout
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <Button
-            android:onClick="signUpWithTwitter"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button"
-            android:text="Sign Up with Twitter"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-
-    </FrameLayout>
-
-
     <LinearLayout
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_height="48dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_height="45dp"
         android:orientation="horizontal"
         android:background="@drawable/button"
         android:gravity="center_vertical"
         android:layout_gravity="center">
 
         <ImageView
+            android:layout_marginLeft="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/facebooklogo"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:onClick="signUpWithEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_name"
+            android:layout_gravity="center"
+            android:text="Sign Up with Facebook"
+            android:layout_marginLeft="15dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@drawable/button"
+        android:gravity="center_vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_marginLeft="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/twitterlogo"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:onClick="signUpWithEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Sign Up with Twitter"
+            android:layout_marginLeft="15dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@drawable/button"
+        android:gravity="center_vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_marginLeft="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/maillogo"
             android:tint="@android:color/white" />
 
         <TextView
@@ -84,7 +109,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Sign Up with email"
+            android:layout_marginLeft="15dp"
             android:textAllCaps="false"
+            android:textSize="16sp"
             android:textColor="@color/white" />
 
 

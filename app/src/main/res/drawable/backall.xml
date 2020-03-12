@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-</selector>
+    <item  >
+        <shape android:shape="rectangle">
+
+
+            <solid android:color="@color/Orange" />
+            <gradient android:type="linear"
+
+                android:startColor="@color/Orange"
+                android:centerColor="@color/red"
+                android:endColor="@color/red"
+                android:angle="90"
+                />
+        </shape>
+    </item>
+</layer-list>

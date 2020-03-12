@@ -259,22 +259,7 @@
             android:layout_marginTop="75dp"
             android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:onClick="shareBtnOnClick"
-                    android:padding="8dp"
-                    android:src="@drawable/share" />
-
-            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -316,6 +301,7 @@
     </LinearLayout>
 
     <ImageView
+        android:onClick="premium"
         android:id="@+id/weightLossModeLayout"
         android:layout_width="100dp"
         android:layout_height="100dp"
