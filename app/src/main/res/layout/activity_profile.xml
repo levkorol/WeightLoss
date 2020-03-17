@@ -59,7 +59,8 @@
             android:layout_below="@id/photoImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:menu="@menu/user_navigation_menu" />
+            app:menu="@menu/user_navigation_menu"
+            app:elevation="0dp"/>
 
     </RelativeLayout>
 </RelativeLayout>

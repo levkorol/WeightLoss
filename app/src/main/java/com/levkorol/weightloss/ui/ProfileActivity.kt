@@ -7,11 +7,19 @@ import android.view.View
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
 import kotlinx.android.synthetic.main.activity_profile.*
+import java.util.logging.LogManager
 
 class ProfileActivity : AppCompatActivity() {
+
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val db: FirebaseFirestore by lazy { Firebase.firestore }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +36,14 @@ class ProfileActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.profileItem -> {
-                    val profileIntent = Intent(this, LoginPasswordActivity::class.java)
-                    profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    startActivity(profileIntent)
+                    if(auth.currentUser == null) {
+                        startActivity(Intent(this, LoginPasswordActivity::class.java))
+                    } else {
+                        val profileIntent = Intent(this, ProfileUserActivity::class.java)
+                        profileIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                        startActivity(profileIntent)
+                    }
+
                 }
 
                 R.id.pleerItem -> {

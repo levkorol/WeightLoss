@@ -167,6 +167,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         when (requestCode) {
             REQUEST_CODE -> {
@@ -309,7 +310,7 @@ class MainActivity : AppCompatActivity() {
     // PRIVATE METHODS
 
     private fun updatePlayButton() {
-        if(mp?.isPlaying == true) {
+        if (mp?.isPlaying == true) {
             playBtn.setBackgroundResource(R.drawable.pause)
         } else {
             playBtn.setBackgroundResource(R.drawable.playbutton)
@@ -319,12 +320,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun load() {
         Log.v("WEIGHT-LOSS", "load: $songIndex")
-        // TODO перенести сюда из play (который ниже) всё что связано с обновлением интерфейса информацией о песнях
+
+        val uri = uris?.get(songIndex)
+        val songInfo = uri?.let { getSongInfo(this, uri) }
+        if (songInfo == null) {
+            Toast.makeText(
+                this, "ne udalos zagruzit pesn",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Log.v("WEIGHT-LOSS", "play: $songInfo")
+            titleSongTextView.text = songInfo.title
+            titleArtistTextView.text = songInfo.artist
+            if (songInfo.albumBitmap == null) {
+                albumImageView.setImageResource(R.drawable.photoalbum)
+            } else {
+                albumImageView.setImageBitmap(songInfo.albumBitmap)
+            }
+        }
+
     }
 
     private fun play(newSongIndex: Int) {
         try {
-            if (uris != null && uris!!.isNotEmpty() && newSongIndex >= 0 && newSongIndex < uris!!.size)  {
+            if (uris != null && uris!!.isNotEmpty() && newSongIndex >= 0 && newSongIndex < uris!!.size) {
                 this.songIndex = newSongIndex
                 adapter.notifyDataSetChanged()
                 val uri = uris!![newSongIndex]
@@ -335,7 +354,8 @@ class MainActivity : AppCompatActivity() {
                     try {
 
                         prepareAsync()
-                    } catch (e: Exception) { }
+                    } catch (e: Exception) {
+                    }
                 }
 
                 mp?.setOnPreparedListener { mp ->
@@ -357,27 +377,28 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }
-
-                val songInfo = getSongInfo(this, uri)
-                if (songInfo == null) {
-                    Toast.makeText(
-                        this, "ne udalos zagruzit pesn",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Log.v("WEIGHT-LOSS", "play: $songInfo")
-                    titleSongTextView.text = songInfo.title
-                    titleArtistTextView.text = songInfo.artist
-                    if (songInfo.albumBitmap == null) {
-                        albumImageView.setImageResource(R.drawable.photoalbum)
-                    } else {
-                        albumImageView.setImageBitmap(songInfo.albumBitmap)
-                    }
-                }
+                load()
+//                val songInfo = getSongInfo(this, uri)
+//                if (songInfo == null) {
+//                    Toast.makeText(
+//                        this, "ne udalos zagruzit pesn",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//                } else {
+//                    Log.v("WEIGHT-LOSS", "play: $songInfo")
+//                    titleSongTextView.text = songInfo.title
+//                    titleArtistTextView.text = songInfo.artist
+//                    if (songInfo.albumBitmap == null) {
+//                        albumImageView.setImageResource(R.drawable.photoalbum)
+//                    } else {
+//                        albumImageView.setImageBitmap(songInfo.albumBitmap)
+//                    }
+//                }
             } else {
                 return
             }
-        } catch (e: Exception) { }
+        } catch (e: Exception) {
+        }
     }
 
     private fun play(uris: List<Uri>?) {
@@ -429,7 +450,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCurrentUri(): Uri? {
-        return if (uris == null  || songIndex > uris!!.size || songIndex < 0) {
+        return if (uris == null || songIndex > uris!!.size || songIndex < 0) {
             null
         } else {
             uris!![songIndex]
@@ -441,12 +462,17 @@ class MainActivity : AppCompatActivity() {
 
         inner class ViewHolder(itemView: ViewGroup) : RecyclerView.ViewHolder(itemView) {
             val titleSongTextView: TextView = itemView.findViewById(R.id.titleSongTextViewInList)
-            val titleArtistTextView: TextView = itemView.findViewById(R.id.titleArtistTextViewInList)
+            val titleArtistTextView: TextView =
+                itemView.findViewById(R.id.titleArtistTextViewInList)
             val playImageView: ImageView = itemView.findViewById(R.id.playImageView)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val songView = LayoutInflater.from(parent.context).inflate(R.layout.layout_song, parent, false) as ViewGroup
+            val songView = LayoutInflater.from(parent.context).inflate(
+                R.layout.layout_song,
+                parent,
+                false
+            ) as ViewGroup
             return ViewHolder(songView)
         }
 
@@ -455,9 +481,19 @@ class MainActivity : AppCompatActivity() {
             holder.titleSongTextView.text = songInfo.title
             holder.titleArtistTextView.text = songInfo.artist
             holder.playImageView.setOnClickListener {
-                // TODO добавить: если песня проигрывается то стопим её иначе стартуем
-                mp?.stop()
+
+
+                if (getCurrentUri() == songInfo.uri && mp?.isPlaying == true) {
+                    holder.playImageView.setImageResource(R.drawable.pause)
+                } else {
+                    holder.playImageView.setImageResource(R.drawable.playbutton)
+                }
+
+                //    mp?.stop()
+
                 play(songInfo.uri)
+
+
             }
             if (getCurrentUri() == songInfo.uri && mp?.isPlaying == true) {
                 holder.playImageView.setImageResource(R.drawable.pause)

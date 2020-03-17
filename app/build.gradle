@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.1'
 }
 
 kotlin {

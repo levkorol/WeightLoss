@@ -2,6 +2,7 @@ package com.levkorol.weightloss.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.levkorol.weightloss.R
 
 class PremiumActivity : AppCompatActivity() {
@@ -10,4 +11,6 @@ class PremiumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_premium)
     }
+
+
 }
