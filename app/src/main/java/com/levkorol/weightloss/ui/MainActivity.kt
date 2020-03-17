@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
+import com.levkorol.weightloss.service.SuperMediaPlayer
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,6 +42,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
+        private val TAG = MainActivity::class.java.simpleName
+
         private const val MY_PERMISSIONS_REQUEST = 1
         private const val REQUEST_CODE = 2
 
@@ -49,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         private const val NO_INDEX = -1 // -1 - типа не выбран индекс песни
     }
 
-    private var mp: MediaPlayer? = null
+    private var mp: SuperMediaPlayer? = null
     private var totalTime: Int = 0
 
     private var originalUris: List<Uri>? = null
@@ -138,7 +141,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        load()
+        loadSongToUI()
     }
 
     override fun onPause() {
@@ -199,6 +202,10 @@ class MainActivity : AppCompatActivity() {
     // CLICK-METHODS
 
     fun playBtnOnClick(v: View) {
+        if (mp?.getDataSource() == null) {
+            loadAndPlaySong(songIndex, false)
+        }
+
         if (mp?.isPlaying == true) {
             mp?.pause()
         } else {
@@ -266,7 +273,7 @@ class MainActivity : AppCompatActivity() {
             songIndex--
             if (songIndex >= uris!!.size) songIndex.minus(1)
             mp?.stop()
-            play(songIndex)
+            loadAndPlaySong(songIndex)
         }
     }
 
@@ -303,7 +310,7 @@ class MainActivity : AppCompatActivity() {
             songIndex++
             if (songIndex >= uris!!.size) songIndex = 0
             mp?.stop()
-            play(songIndex)
+            loadAndPlaySong(songIndex)
         }
     }
 
@@ -315,12 +322,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             playBtn.setBackgroundResource(R.drawable.playbutton)
         }
-
     }
 
-    private fun load() {
+    private fun loadSongToUI() {
         Log.v("WEIGHT-LOSS", "load: $songIndex")
-
+        if (songIndex == -1) return
         val uri = uris?.get(songIndex)
         val songInfo = uri?.let { getSongInfo(this, uri) }
         if (songInfo == null) {
@@ -329,7 +335,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         } else {
-            Log.v("WEIGHT-LOSS", "play: $songInfo")
             titleSongTextView.text = songInfo.title
             titleArtistTextView.text = songInfo.artist
             if (songInfo.albumBitmap == null) {
@@ -338,29 +343,30 @@ class MainActivity : AppCompatActivity() {
                 albumImageView.setImageBitmap(songInfo.albumBitmap)
             }
         }
-
     }
 
-    private fun play(newSongIndex: Int) {
+    private fun loadAndPlaySong(newSongIndex: Int, play: Boolean = true) {
         try {
             if (uris != null && uris!!.isNotEmpty() && newSongIndex >= 0 && newSongIndex < uris!!.size) {
                 this.songIndex = newSongIndex
                 adapter.notifyDataSetChanged()
                 val uri = uris!![newSongIndex]
-                mp = MediaPlayer().apply {
+                mp?.stop()
+                mp = SuperMediaPlayer().apply {
                     setDataSource(applicationContext, uri)
                     //isLooping = true
                     setVolume(0.5f, 0.5f)
                     try {
-
                         prepareAsync()
                     } catch (e: Exception) {
                     }
                 }
 
                 mp?.setOnPreparedListener { mp ->
-                    mp.start()
-                    updatePlayButton()
+                    if (play) {
+                        mp.start()
+                        updatePlayButton()
+                    }
                     totalTime = mp.duration
                     positionBar.max = totalTime
                 }
@@ -368,16 +374,16 @@ class MainActivity : AppCompatActivity() {
                 mp?.setOnCompletionListener {
                     if (repeatMode) {
                         mp?.stop()
-                        play(newSongIndex)
+                        loadAndPlaySong(newSongIndex)
                     } else {
                         this.songIndex++
                         if (this.songIndex >= uris!!.size) this.songIndex = 0
                         mp?.stop()
-                        play(this.songIndex)
+                        loadAndPlaySong(this.songIndex)
                     }
 
                 }
-                load()
+                loadSongToUI()
 //                val songInfo = getSongInfo(this, uri)
 //                if (songInfo == null) {
 //                    Toast.makeText(
@@ -405,12 +411,12 @@ class MainActivity : AppCompatActivity() {
         mp?.release()
         mp = null
         this.uris = uris
-        play(0)
+        loadAndPlaySong(0)
     }
 
     private fun play(uri: Uri) {
         val i = uris?.indexOf(uri) ?: NO_INDEX
-        play(i)
+        loadAndPlaySong(i)
     }
 
     private fun createTimeLabel(time: Int): String {
@@ -432,10 +438,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun savePreferences() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        if (uris != null) { // List<Uri> -> Set<String>
-            val urisAsStrings: List<String> = uris!!.map { uri -> uri.toString() }
+        if (uris != null) {
             sp.edit()
-                .putStringSet(SP_PLAYLIST, urisAsStrings.toSet())
+                .putString(SP_PLAYLIST, uris?.joinToString(","))
                 .putInt("SONGINDEX", songIndex)
                 .apply()
 
@@ -444,8 +449,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadPreferences() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val stringsSet = sp.getStringSet(SP_PLAYLIST, setOf()) // Set<String> -> List<Uri>
-        uris = stringsSet.map { string -> Uri.parse(string) }.toList()
+        val a: List<String>? = sp.getString(SP_PLAYLIST, "")?.split(",")
+        uris = a?.map { string -> Uri.parse(string) }
         songIndex = sp.getInt("SONGINDEX", NO_INDEX)
     }
 
@@ -495,6 +500,7 @@ class MainActivity : AppCompatActivity() {
 
 
             }
+            Log.v(TAG, "$position, ${getCurrentUri()}, ${mp?.isPlaying}")
             if (getCurrentUri() == songInfo.uri && mp?.isPlaying == true) {
                 holder.playImageView.setImageResource(R.drawable.pause)
             } else {

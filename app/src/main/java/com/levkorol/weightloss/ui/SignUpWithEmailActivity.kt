@@ -3,6 +3,8 @@ package com.levkorol.weightloss.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +37,15 @@ class SignUpWithEmailActivity : AppCompatActivity() {
         signUp.setOnClickListener {
             createUser()
         }
+
+        inputName.error = "ОШИБОЧКА(((("
+        editTextName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // TODO
+            }
+        })
     }
 
     private fun createUser() {
@@ -61,6 +72,8 @@ class SignUpWithEmailActivity : AppCompatActivity() {
     private fun saveInfo() {
 //        val genderMan = radio_man
 //        val genderWoman = radio_woman
+//        radio_man.isChecked
+//        radoigroup.checkedRadioButtonId
         val name = editTextName.text.toString()
         val email = editTextEmail.text.toString()
         val password = editTextPassword.text.toString()
