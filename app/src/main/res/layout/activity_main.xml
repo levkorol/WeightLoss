@@ -23,14 +23,14 @@
 
         <ImageView
             android:layout_marginTop="8dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="12dp"
             android:id="@+id/burgerButton"
             android:padding="8dp"
             android:background="?selectableItemBackgroundBorderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="47dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/burgermenu"
+            android:src="@drawable/burgerpanel"
             android:onClick="goToMenu" />
     </RelativeLayout>
 
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_gravity="center"
-            android:text="add your songs..."
+            android:text="@string/add"
             android:textSize="19sp" />
 
     </LinearLayout>

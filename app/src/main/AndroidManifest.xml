@@ -16,11 +16,13 @@
         <activity android:name=".ui.InvateFriendsActivity" />
         <activity android:name=".ui.PremiumActivity" />
         <activity android:name=".ui.SettingsActivity" />
-        <activity android:name=".ui.SignUpWithEmailActivity" />
+        <activity android:name=".ui.SignUpWithEmailActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.SongsActivity" />
         <activity android:name=".ui.RegistrationActivity" />
-        <activity android:name=".ui.LoginPasswordActivity" />
+        <activity android:name=".ui.LoginPasswordActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

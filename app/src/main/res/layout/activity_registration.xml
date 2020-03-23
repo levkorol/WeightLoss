@@ -1,23 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.RegistrationActivity"
-    android:background="@drawable/backgroundprofile"
+    android:background="@drawable/backall"
     android:orientation="vertical">
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
 
         <ImageView
-            android:layout_marginTop="-5dp"
-            android:id="@+id/picture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/picture_sign_up_background"
-
+            android:layout_marginTop="8dp"
+            android:id="@+id/addSongsButton"
+            android:padding="8dp"
+            android:layout_marginLeft="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/back"
             />
+
+        <TextView
+            android:layout_marginTop="19dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:text="@string/btn_registration"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/burgerButton"
+            android:padding="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:layout_width="47dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/burgerwhite"
+            android:onClick="goToMenu" />
+    </RelativeLayout>
+
+
 
 
 
@@ -25,8 +55,8 @@
         android:onClick="signUpWithFacebook"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_height="45dp"
         android:orientation="horizontal"
         android:background="@drawable/button"
@@ -44,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sign Up with Facebook"
+            android:text="@string/facebook"
             android:layout_marginLeft="15dp"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -54,10 +84,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:onClick="signUpWithEmail"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_height="45dp"
         android:orientation="horizontal"
         android:background="@drawable/button"
@@ -72,11 +103,11 @@
             android:tint="@android:color/white" />
 
         <TextView
-            android:onClick="signUpWithEmail"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sign Up with Twitter"
+            android:text="@string/twitter"
             android:layout_marginLeft="15dp"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -86,10 +117,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:onClick="signUpWithEmail"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_height="45dp"
         android:orientation="horizontal"
         android:background="@drawable/button"
@@ -104,11 +136,11 @@
             android:tint="@android:color/white" />
 
         <TextView
-            android:onClick="signUpWithEmail"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sign Up with email"
+            android:text="@string/sign_email"
             android:layout_marginLeft="15dp"
             android:textAllCaps="false"
             android:textSize="16sp"

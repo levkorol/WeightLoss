@@ -7,6 +7,41 @@
     android:background="@drawable/backall"
     android:orientation="vertical"
     tools:context=".ui.InvateFriendsActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/pick5"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:id="@+id/addSongsButton"
+            android:padding="8dp"
+            android:layout_marginLeft="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/back"
+            />
+
+        <TextView
+            android:layout_marginTop="19dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:text="@string/invate_friends"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -14,10 +49,12 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
+
+
 
         <ImageView
             android:layout_width="35dp"
@@ -30,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:text="1 DAY"
+            android:text="@string/day_one"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp"
@@ -42,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="FOR YOU FOR EVERY INVITATION"
+            android:text="@string/day_oee"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp" />
@@ -70,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:text="7 DAYS"
+            android:text="@string/day_two"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp"
@@ -82,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="FOR YOU FOR EVERY NEW USER"
+            android:text="@string/day_too"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp" />
@@ -110,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:text="3 DAYS"
+            android:text="@string/three"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp"
@@ -122,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="FOR YOUR FRIENDS AS A GIFT"
+            android:text="@string/tree_day"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp" />
@@ -139,7 +176,7 @@
         android:onClick="shareBtn"
         android:padding="8dp"
         android:elevation="4dp"
-        android:text="INVATE YOUR FRIENDS"
+        android:text="@string/invate"
         android:textColor="@color/white"
         />
 

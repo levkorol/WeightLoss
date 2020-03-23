@@ -159,10 +159,7 @@ class MainActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     requestAudioFiles()
                 } else {
-                    Toast.makeText(
-                        this, "razreshite prilozheniu chtenie audio s ustroystva",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showToast("Allow the app to read audio files from your device")
                 }
                 return
             }
@@ -238,14 +235,11 @@ class MainActivity : AppCompatActivity() {
 
     fun listSongs(v: View) {
         if (uris == null) {
-            Toast.makeText(
-                this, "add your songs",
-                Toast.LENGTH_LONG
-            ).show()
+            showToast("add your songs")
 //            adapter.songInfos = songInfos
 //            adapter.notifyDataSetChanged()
         } else {
-            var songInfos: MutableList<SongInfo> = arrayListOf()
+            val songInfos: MutableList<SongInfo> = arrayListOf()
             for (uri in uris!!) {
                 val songs = getSongInfo(this, uri)
                 songInfos.add(songs!!)
@@ -330,10 +324,7 @@ class MainActivity : AppCompatActivity() {
         val uri = uris?.get(songIndex)
         val songInfo = uri?.let { getSongInfo(this, uri) }
         if (songInfo == null) {
-            Toast.makeText(
-                this, "ne udalos zagruzit pesn",
-                Toast.LENGTH_LONG
-            ).show()
+            showToast("Failed to load audio files, try again")
         } else {
             titleSongTextView.text = songInfo.title
             titleArtistTextView.text = songInfo.artist
@@ -349,7 +340,7 @@ class MainActivity : AppCompatActivity() {
         try {
             if (uris != null && uris!!.isNotEmpty() && newSongIndex >= 0 && newSongIndex < uris!!.size) {
                 this.songIndex = newSongIndex
-                adapter.notifyDataSetChanged()
+                // adapter.notifyDataSetChanged()
                 val uri = uris!![newSongIndex]
                 mp?.stop()
                 mp = SuperMediaPlayer().apply {
@@ -365,6 +356,7 @@ class MainActivity : AppCompatActivity() {
                 mp?.setOnPreparedListener { mp ->
                     if (play) {
                         mp.start()
+                        adapter.notifyDataSetChanged()
                         updatePlayButton()
                     }
                     totalTime = mp.duration
@@ -384,22 +376,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 loadSongToUI()
-//                val songInfo = getSongInfo(this, uri)
-//                if (songInfo == null) {
-//                    Toast.makeText(
-//                        this, "ne udalos zagruzit pesn",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                } else {
-//                    Log.v("WEIGHT-LOSS", "play: $songInfo")
-//                    titleSongTextView.text = songInfo.title
-//                    titleArtistTextView.text = songInfo.artist
-//                    if (songInfo.albumBitmap == null) {
-//                        albumImageView.setImageResource(R.drawable.photoalbum)
-//                    } else {
-//                        albumImageView.setImageBitmap(songInfo.albumBitmap)
-//                    }
-//                }
             } else {
                 return
             }
@@ -449,7 +425,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadPreferences() {
         val sp = this.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val a: List<String>? = sp.getString(SP_PLAYLIST, "")?.split(",")
+        val a: List<String>?
+        a = sp.getString(SP_PLAYLIST, "")?.split(",")
         uris = a?.map { string -> Uri.parse(string) }
         songIndex = sp.getInt("SONGINDEX", NO_INDEX)
     }

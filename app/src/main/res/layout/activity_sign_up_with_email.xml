@@ -12,11 +12,53 @@
         android:isScrollContainer="true"
         android:orientation="vertical">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+
+            <ImageView
+                android:layout_marginTop="8dp"
+                android:id="@+id/addSongsButton"
+                android:padding="8dp"
+                android:layout_marginLeft="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/back"
+                />
+
+            <TextView
+                android:layout_marginTop="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:text="@string/with"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/burgerButton"
+                android:padding="8dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_width="47dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/burgerwhite"
+                android:onClick="goToMenu" />
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:onClick="addPhoto"
                 android:id="@+id/photoImageView"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
@@ -49,13 +91,14 @@
 
                 <RadioButton
                     android:id="@+id/radio_man"
+                    android:checked="true"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_selector"
                     android:button="@android:color/transparent"
                     android:padding="6dp"
-                    android:text="Man"
+                    android:text="@string/man"
                     android:textAlignment="center"
                     android:textColor="@drawable/color_text" />
 
@@ -68,7 +111,7 @@
                     android:background="@drawable/button_selector"
                     android:button="@android:color/transparent"
                     android:padding="6dp"
-                    android:text="Woman"
+                    android:text="@string/woman"
                     android:textAlignment="center"
                     android:textColor="@drawable/color_text" />
 
@@ -88,7 +131,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="Name"
+                    android:hint="@string/hint_name"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white">
 
@@ -111,7 +154,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="E-mail"
+                    android:hint="@string/hint_email"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white">
 
@@ -133,7 +176,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="Password"
+                    android:hint="@string/hint_password"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white">
 
@@ -156,7 +199,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="Country"
+                    android:hint="@string/hint_country"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white">
 
@@ -178,7 +221,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="Date of birthd"
+                    android:hint="@string/hint_birthd"
                     android:textColorHint="@color/white"
                     app:boxStrokeColor="@color/white">
 
@@ -200,13 +243,14 @@
                     android:layout_below="@+id/inputData"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="60dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="40dp"
                     android:background="@drawable/button"
                     android:elevation="2dp"
-                    android:text="Registration"
+                    android:text="@string/btn_registration"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    />
 
 
             </RelativeLayout>

@@ -4,37 +4,37 @@
 
     <item
         android:id="@+id/profileItem"
-        android:title="Profile"
+        android:title="@string/profile_item"
         android:icon="@drawable/ic_profile"
 
         />
 
     <item
         android:id="@+id/pleerItem"
-        android:title="Player"
+        android:title="@string/pleer_item"
         android:icon="@drawable/ic_music"/>
 
     <item
         android:id="@+id/premiumItem"
-        android:title="Go Premium"
+        android:title="@string/go_premium_item"
         android:icon="@drawable/ic_go_premium"/>
 
     <item
         android:id="@+id/inviteFriendsItem"
-        android:title="Invite friends"
+        android:title="@string/friends_item"
         android:icon="@drawable/ic_invate_friends"/>
 
     <item
         android:id="@+id/instructionsItem"
-        android:title="Instructions"
+        android:title="@string/instruction_item"
         android:icon="@drawable/ic_instructions"/>
 
     <item
         android:id="@+id/otherAppsItem"
-        android:title="Other apps"
+        android:title="@string/other_apps_item"
         android:icon="@drawable/ic_other_apps"/>
     <item
         android:id="@+id/settingsItem"
-        android:title="Settings"
+        android:title="@string/setting_item"
         android:icon="@drawable/ic_setting"/>
 </menu>

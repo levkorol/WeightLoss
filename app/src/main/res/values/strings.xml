@@ -1,3 +1,58 @@
 <resources>
     <string name="app_name">WeightLoss</string>
+    <string name="read_audio">Allow the app to read audio files from your device</string>
+    <string name="toast_add_songs">add your songs</string>
+    <string name="toast_failed">Failed to load audio files, try again</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="hint_name">Name*</string>
+    <string name="hint_email">E-mail*</string>
+    <string name="hint_password">Password*</string>
+    <string name="hint_country">Country</string>
+    <string name="hint_birthd">Date of birthday</string>
+    <string name="btn_registration">Registration</string>
+    <string name="min">6 characters minimum</string>
+    <string name="marked">Please fill in the required fields marked: * !</string>
+    <string name="day_one">1 DAY</string>
+    <string name="day_oee">FOR YOU FOR EVERY INVITATION</string>
+    <string name="day_two">7 DAYS</string>
+    <string name="day_too">FOR YOU FOR EVERY NEW USER</string>
+    <string name="three">3 DAYS</string>
+    <string name="tree_day">FOR YOUR FRIENDS AS A GIFT</string>
+    <string name="invate">INVATE YOUR FRIENDS</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in to your account</string>
+    <string name="signup">Sign Up</string>
+    <string name="add">add your songs</string>
+    <string name="name_profile">Name</string>
+    <string name="gender_profile">Gender</string>
+    <string name="country_profile">Country</string>
+    <string name="system">Measurement system</string>
+    <string name="weight">Weiht</string>
+    <string name="hight">Hight</string>
+    <string name="facebook">Sign Up with Facebook</string>
+    <string name="twitter">Sign Up with Twitter</string>
+    <string name="sign_email">Sign Up with email</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="account">Account type"</string>
+    <string name="basic">Basic</string>
+    <string name="login">Login</string>
+    <string name="profile_item">Profile</string>
+    <string name="pleer_item">Player</string>
+    <string name="go_premium_item">Go Premium</string>
+    <string name="friends_item">Invite friends</string>
+    <string name="instruction_item">Instructions</string>
+    <string name="other_apps_item">Other apps</string>
+    <string name="setting_item">Settings</string>
+    <string name="invate_friends">Invate friends</string>
+    <string name="premium">Premium</string>
+    <string name="with">Registration with e-mail</string>
+
+
+
+
+
+
 </resources>

@@ -9,10 +9,40 @@
     android:background="@drawable/backall">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:id="@+id/addSongsButton"
+            android:padding="8dp"
+            android:layout_marginLeft="10dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/back"
+            />
+
+        <TextView
+            android:layout_marginTop="19dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:text="@string/premium"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
     <Button
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@drawable/button"/>
