@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.common.eventbus.EventBus
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.service.SuperMediaPlayer
@@ -429,6 +430,7 @@ class MainActivity : AppCompatActivity() {
         a = sp.getString(SP_PLAYLIST, "")?.split(",")
         uris = a?.map { string -> Uri.parse(string) }
         songIndex = sp.getInt("SONGINDEX", NO_INDEX)
+        // TODO мб логи сюда добавить
     }
 
     private fun getCurrentUri(): Uri? {
@@ -486,6 +488,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItemCount() = songInfos.size
+    }
+
+    private fun updateByPremium() {
+        // TODO менять тут дизайн
+        // TODO пример: profilPanelLayout.setBackgroundResource(if (UserRepository.premium) R.color.colorAccent else R.color.colorPrimary)
     }
 
 }

@@ -46,8 +46,7 @@ class ProfileUserActivity : AppCompatActivity() {
                 } else {
                     Log.v(TAG, "loadInfo#succes: ${result.documents[0].get("name")}")
                     updateLayout(result.documents[0])
-                  //  updatePhotoProfile()
-
+                    updatePhotoProfile()
                 }
 
             }
@@ -58,24 +57,25 @@ class ProfileUserActivity : AppCompatActivity() {
 
     }
 
-//    private fun updatePhotoProfile(){
-//        val reference = storage.reference.child("images/${email}")
-//        Log.v(TAG,"Image ${reference}")
-//        val  ONE_MEGABYTE = 1024 * 1024
-//        reference.getBytes(ONE_MEGABYTE.toLong())
-//            .addOnSuccessListener {
-//            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-//            val handler = object: Handler(Looper.getMainLooper()) {
-//                override fun handleMessage(msg: Message) {
-//                    photoImageViewP.imageBitmap = bitmap
-//                    photoImageViewProfileUser.imageBitmap = bitmap
-//                }
-//            }
-//            handler.sendEmptyMessage(0)
-//        }.addOnFailureListener {
-//            // TODO отображать ошибку
-//        }
-//    }
+    // TODO место этого метода - в UserRepository
+    // TODO и добавить параметр ImageView - куда нужно загрузить картинку в конце
+    private fun updatePhotoProfile(){
+        val reference = storage.reference.child("images/${auth.currentUser?.email}")
+        Log.v(TAG,"Image ${reference}")
+        val  ONE_MEGABYTE = 1024 * 1024
+        reference.getBytes(ONE_MEGABYTE.toLong())
+            .addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+            val handler = object: Handler(Looper.getMainLooper()) {
+                override fun handleMessage(msg: Message) {
+                    photoImageViewProfileUser.imageBitmap = bitmap
+                }
+            }
+            handler.sendEmptyMessage(0)
+        }.addOnFailureListener {
+            // TODO отображать ошибку
+        }
+    }
 
     private fun updateLayout(document: DocumentSnapshot) {
         nameTextView.text = document.get("name").toString()

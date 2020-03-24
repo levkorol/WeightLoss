@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_sign_up_with_email.*
 import android.provider.MediaStore
 import android.app.Activity
 import android.content.Context
+import android.content.Intent.*
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
@@ -129,7 +130,7 @@ class SignUpWithEmailActivity : AppCompatActivity() {
             .add(user)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "saveInfo>success: ${documentReference.id}")
-                startActivity(Intent(this, ProfileUserActivity::class.java))
+                startActivity(Intent(this, ProfileUserActivity::class.java)) // TODO добавить флаги
                 finish()
             }
             .addOnFailureListener { e ->
@@ -171,7 +172,7 @@ class SignUpWithEmailActivity : AppCompatActivity() {
     }
 
     private fun openGallery() {
-        val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        val gallery = Intent(ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(gallery, PICK_IMAGE)
     }
 

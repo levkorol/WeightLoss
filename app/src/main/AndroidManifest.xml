@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.ProfileUserActivity"></activity>
-        <activity android:name=".ui.InvateFriendsActivity" />
+        <activity android:name=".ui.InvateFriendsActivity"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".ui.PremiumActivity" />
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.SignUpWithEmailActivity"
