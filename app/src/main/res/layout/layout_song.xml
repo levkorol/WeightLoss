@@ -38,7 +38,7 @@
         android:layout_marginRight="17dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/playImageView"
-        android:src="@drawable/playbutton"
+        android:src="@drawable/play_btn"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"/>

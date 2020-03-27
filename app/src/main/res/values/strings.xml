@@ -3,6 +3,8 @@
     <string name="read_audio">Allow the app to read audio files from your device</string>
     <string name="toast_add_songs">add your songs</string>
     <string name="toast_failed">Failed to load audio files, try again</string>
+    <string name="toast_some_hepined">"Something wrong happened. Please try again later"</string>
+    <string name="login_pass">Please enter email and password</string>
     <string name="man">Man</string>
     <string name="woman">Woman</string>
     <string name="hint_name">Name*</string>
@@ -49,10 +51,6 @@
     <string name="invate_friends">Invate friends</string>
     <string name="premium">Premium</string>
     <string name="with">Registration with e-mail</string>
-
-
-
-
 
 
 </resources>

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.RegistrationActivity"
     android:background="@drawable/backall"
-    android:orientation="vertical">
+    >
+
+    <ImageView
+        android:id="@+id/pick1"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:src="@drawable/pick1"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
     <RelativeLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="100">
 
         <ImageView
+            android:onClick="back"
             android:layout_marginTop="8dp"
             android:id="@+id/addSongsButton"
             android:padding="8dp"
@@ -52,8 +62,10 @@
 
 
     <LinearLayout
+        android:id="@+id/facebook"
+        android:layout_below="@+id/pick1"
         android:onClick="signUpWithFacebook"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
@@ -84,6 +96,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/twitter"
+        android:layout_below="@+id/facebook"
         android:onClick="signUpWithEmail"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
@@ -117,6 +131,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_below="@+id/twitter"
         android:onClick="signUpWithEmail"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
@@ -149,4 +164,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

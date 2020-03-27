@@ -43,10 +43,26 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }
 
 kotlin {
     experimental {
         coroutines "enable"
+    }
+}
+
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    def eventbus_version = '3.2.0'
+    implementation "org.greenrobot:eventbus:$eventbus_version"
+    kapt "org.greenrobot:eventbus-annotation-processor:$eventbus_version"
+}
+
+kapt {
+    arguments {
+        arg('eventBusIndex', 'com.example.myapp.MyEventBusIndex')
     }
 }

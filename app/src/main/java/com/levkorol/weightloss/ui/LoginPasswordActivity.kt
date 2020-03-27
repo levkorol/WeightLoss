@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.levkorol.weightloss.R
 import kotlinx.android.synthetic.main.activity_login_password.*
+import kotlinx.android.synthetic.main.activity_settings.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
@@ -22,16 +23,11 @@ class LoginPasswordActivity : AppCompatActivity(), TextWatcher {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_password)
 
-        //  KeyboardVisibilityEvent.setEventListener(this,this)
+        window.decorView.systemUiVisibility =
+            window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
     }
 
-//    override fun onVisibilityChanged(isKeyboardOpen: Boolean) {
-//      if(isKeyboardOpen) {
-//          skroll_login.scrollTo(0,skroll_login.bottom)
-//      } else {
-//          skroll_login.scrollTo(0,skroll_login.top)
-//      }
-//    }
 
     fun goToRegistr(v: View) {
         val intent = Intent(this@LoginPasswordActivity, RegistrationActivity::class.java)
@@ -52,7 +48,7 @@ class LoginPasswordActivity : AppCompatActivity(), TextWatcher {
                     showToast("Log in failed.")
                 }
         } else {
-            showToast("Please enter email and password")
+            showToast(getString(R.string.login_pass))
         }
     }
 

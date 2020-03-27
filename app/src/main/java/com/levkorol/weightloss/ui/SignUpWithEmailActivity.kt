@@ -49,6 +49,8 @@ class SignUpWithEmailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.levkorol.weightloss.R.layout.activity_sign_up_with_email)
 
+        window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
         //click
         signUp.setOnClickListener {
             createUser()
@@ -79,6 +81,15 @@ class SignUpWithEmailActivity : AppCompatActivity() {
         openGallery()
     }
 
+    fun back(view: View) {finish()}
+
+    fun goToMenu(v: View) {
+        val intent = Intent(this, ProfileActivity::class.java)
+//        val songInfos: ArrayList<SongInfo> = arrayListOf()
+//        intent.putExtra("as", songInfos)
+        startActivity(intent)
+    }
+
     private fun createUser() {
 
         val email = editTextEmail.text.toString()
@@ -94,9 +105,7 @@ class SignUpWithEmailActivity : AppCompatActivity() {
                         if (imageUri != null) {
                             uploadPhotoAndSaveInfo(imageUri!!, email)
                         } else {
-                            updatePhotoProfile()
                             saveInfo()
-
                         }
                     } else {
                         Log.w(TAG, "createUserWithEmail>failure", task.exception)
@@ -130,12 +139,16 @@ class SignUpWithEmailActivity : AppCompatActivity() {
             .add(user)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "saveInfo>success: ${documentReference.id}")
-                startActivity(Intent(this, ProfileUserActivity::class.java)) // TODO добавить флаги
+
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_CLEAR_TOP
+                intent.putExtra("sign",true)
+                startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "saveInfo>failure", e)
-                showToast("Something wrong happened. Please try again later")
+                showToast(getString(R.string.toast_some_hepined))
             }
     }
 
@@ -152,24 +165,7 @@ class SignUpWithEmailActivity : AppCompatActivity() {
         }
     }
 
-    private fun updatePhotoProfile(){
-        val reference = storage.reference.child("images/${email}")
-        Log.v(ProfileUserActivity.TAG,"Image ${reference}")
-        val  ONE_MEGABYTE = 1024 * 1024
-        reference.getBytes(ONE_MEGABYTE.toLong())
-            .addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-                val handler = object: Handler(Looper.getMainLooper()) {
-                    override fun handleMessage(msg: Message) {
-                        photoImageViewP.imageBitmap = bitmap
-                        photoImageViewProfileUser.imageBitmap = bitmap
-                    }
-                }
-                handler.sendEmptyMessage(0)
-            }.addOnFailureListener {
-                // TODO отображать ошибку
-            }
-    }
+
 
     private fun openGallery() {
         val gallery = Intent(ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)

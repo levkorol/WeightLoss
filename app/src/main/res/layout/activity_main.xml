@@ -41,6 +41,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:layout_marginTop="25dp"
             android:id="@+id/albumImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -119,30 +120,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/test_dimen"
-            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
 
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginLeft="@dimen/super_left_padding"
-                android:layout_marginRight="0dp"
+                android:layout_weight="0"
                 android:src="@drawable/speeakeroff" />
 
             <SeekBar
                 android:id="@+id/volumeBar"
-                android:layout_width="320dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="3"
                 android:max="100"
                 android:progress="50" />
 
             <ImageView
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginRight="30dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_weight="0"
                 android:src="@drawable/speeakeron" />
 
 
@@ -152,7 +153,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:orientation="horizontal">
 
 
@@ -168,7 +171,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:background="?selectableItemBackgroundBorderless"
-
                     android:onClick="playPrevBtnOnClick"
                     android:padding="8dp"
                     android:src="@drawable/leftarrow"
@@ -186,10 +188,10 @@
 
                 <ImageButton
                     android:id="@+id/playBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/playbutton"
+                    android:background="@drawable/play_btn"
                     android:onClick="playBtnOnClick" />
             </FrameLayout>
 
@@ -218,13 +220,15 @@
 
         <RelativeLayout
             android:id="@+id/rl"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="22dp">
 
             <SeekBar
                 android:id="@+id/positionBar"
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
@@ -254,9 +258,10 @@
         </RelativeLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="18dp"
             android:orientation="horizontal">
 
 

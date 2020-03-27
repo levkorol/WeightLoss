@@ -12,11 +12,13 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="100">
 
         <ImageView
+            android:onClick="back"
             android:layout_marginTop="8dp"
             android:id="@+id/addSongsButton"
             android:padding="8dp"

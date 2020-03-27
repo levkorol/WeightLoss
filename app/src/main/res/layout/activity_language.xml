@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:text="@string/setting_item"
+            android:text="Language"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -48,72 +48,49 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/language"
-        android:textColor="@color/white"/>
+   <RadioGroup
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
 
-    <Button
-        android:onClick="clickLaungage"
+    <RadioButton
+        android:checked="true"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/transparent"
-        android:drawableRight="@drawable/chevronright"
         android:text="@string/english"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold" />
+         />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/line_items"/>
 
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/account"
-        android:textColor="@color/white"/>
 
-    <Button
+
+    <RadioButton
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/transparent"
-        android:drawableRight="@drawable/chevronright"
-        android:text="@string/basic"
+        android:text="German"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold" />
+         />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/line_items"/>
 
-    <Switch
-        android:id="@+id/swich"
-        android:onClick="logOut"
-        android:outlineAmbientShadowColor="@android:color/holo_green_dark"
-        android:outlineSpotShadowColor="@android:color/holo_green_dark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+</RadioGroup>
 
 </LinearLayout>

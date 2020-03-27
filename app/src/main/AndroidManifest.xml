@@ -12,18 +12,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ProfileUserActivity"></activity>
-        <activity android:name=".ui.InvateFriendsActivity"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.PremiumActivity" />
-        <activity android:name=".ui.SettingsActivity" />
-        <activity android:name=".ui.SignUpWithEmailActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+        <activity android:name=".ui.Language"
+            android:theme="@style/App"></activity>
+        <activity
+            android:name=".ui.ProfileUserActivity"
+            android:theme="@style/App" />
+        <activity
+            android:name=".ui.InvateFriendsActivity"
+            android:theme="@style/App" />
+        <activity
+            android:name=".ui.PremiumActivity"
+            android:theme="@style/App" />
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:theme="@style/App" />
+        <activity
+            android:name=".ui.SignUpWithEmailActivity"
+            android:theme="@style/App"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.SongsActivity" />
-        <activity android:name=".ui.RegistrationActivity" />
-        <activity android:name=".ui.LoginPasswordActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+        <activity
+            android:name=".ui.RegistrationActivity"
+            android:theme="@style/App" />
+        <activity
+            android:name=".ui.LoginPasswordActivity"
+            android:theme="@style/App"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

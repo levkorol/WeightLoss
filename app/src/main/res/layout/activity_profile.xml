@@ -38,6 +38,18 @@
         android:background="@drawable/backgroundprofile"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/name_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:text="test testovich"
+            android:layout_toRightOf="@+id/photoImageViewP"
+            android:layout_alignBottom="@+id/photoImageViewP"
+            />
+
         <de.hdodenhof.circleimageview.CircleImageView
 
             android:layout_marginTop="35dp"

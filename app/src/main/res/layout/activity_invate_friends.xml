@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/backall"
     android:orientation="vertical"
     tools:context=".ui.InvateFriendsActivity">
     <ImageView
+        android:id="@+id/pick5"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/pick5"/>
+        android:layout_height="340dp"
+        android:src="@drawable/pick5"
+        android:scaleType="centerCrop"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pick5"
+        android:layout_centerHorizontal="true"
+        android:background="#90c1c1c1"
+        android:text="\nINVITE YOUR FRIENDS \n AND ENGOY APP FOR FREE\n"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
 
     <RelativeLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="100">
+        android:weightSum="100"
+        >
 
         <ImageView
+            android:onClick="back"
             android:layout_marginTop="8dp"
             android:id="@+id/addSongsButton"
             android:padding="8dp"
@@ -45,11 +63,13 @@
 
 
     <LinearLayout
+        android:id="@+id/one"
+        android:layout_below="@+id/pick5"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -75,6 +95,7 @@
 
         <TextView
 
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -87,6 +108,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/seven"
+        android:layout_below="@+id/one"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -127,6 +150,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/three"
+        android:layout_below="@+id/seven"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -167,6 +192,7 @@
     </LinearLayout>
 
     <Button
+        android:layout_below="@+id/three"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="30dp"
@@ -181,4 +207,4 @@
         />
 
 
-</LinearLayout>
+</RelativeLayout>

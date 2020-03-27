@@ -24,12 +24,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.common.eventbus.EventBus
+import com.google.common.eventbus.Subscribe
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.auth.User
 import com.levkorol.weightloss.R
+import com.levkorol.weightloss.data.UserRepository
 import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.service.SuperMediaPlayer
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.ThreadMode
 
 
 // CTRL + ALT + L
@@ -64,6 +69,7 @@ class MainActivity : AppCompatActivity() {
     private var repeatMode: Boolean = false
 
     private val adapter = Adapter(arrayListOf())
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     @SuppressLint("HandlerLeak")
     var handler = object : Handler() {
@@ -83,6 +89,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        if(intent.getBooleanExtra("sign", true)) {
+//            startActivity(Intent(this,ProfileUserActivity::class.java))
+//        }
 
         loadPreferences()
 
@@ -139,6 +149,21 @@ class MainActivity : AppCompatActivity() {
             }
         }).start()
     }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        EventBus.getDefault().register(this)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        EventBus.getDefault().unregister(this)
+//    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onEvent(event: SampleEvent) {
+//        /* тут чего-нибудь делаем */
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -243,7 +268,10 @@ class MainActivity : AppCompatActivity() {
             val songInfos: MutableList<SongInfo> = arrayListOf()
             for (uri in uris!!) {
                 val songs = getSongInfo(this, uri)
-                songInfos.add(songs!!)
+                if (songs != null) {
+                    songInfos.add(songs)
+                }
+
             }
             adapter.songInfos = songInfos
             adapter.notifyDataSetChanged()
@@ -309,13 +337,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     // PRIVATE METHODS
 
     private fun updatePlayButton() {
         if (mp?.isPlaying == true) {
             playBtn.setBackgroundResource(R.drawable.pause)
         } else {
-            playBtn.setBackgroundResource(R.drawable.playbutton)
+            playBtn.setBackgroundResource(R.drawable.play_btn)
         }
     }
 
@@ -470,7 +499,7 @@ class MainActivity : AppCompatActivity() {
                 if (getCurrentUri() == songInfo.uri && mp?.isPlaying == true) {
                     holder.playImageView.setImageResource(R.drawable.pause)
                 } else {
-                    holder.playImageView.setImageResource(R.drawable.playbutton)
+                    holder.playImageView.setImageResource(R.drawable.play_btn)
                 }
 
                 //    mp?.stop()
@@ -483,7 +512,7 @@ class MainActivity : AppCompatActivity() {
             if (getCurrentUri() == songInfo.uri && mp?.isPlaying == true) {
                 holder.playImageView.setImageResource(R.drawable.pause)
             } else {
-                holder.playImageView.setImageResource(R.drawable.playbutton)
+                holder.playImageView.setImageResource(R.drawable.play_btn)
             }
         }
 
@@ -491,8 +520,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateByPremium() {
-        // TODO менять тут дизайн
-        // TODO пример: profilPanelLayout.setBackgroundResource(if (UserRepository.premium) R.color.colorAccent else R.color.colorPrimary)
+        profilPanelLayout.setBackgroundResource(
+            if (UserRepository.premium) {
+                R.drawable.a_green_background_panel_pleer
+            } else {
+                R.drawable.backgpanelpleer
+            }
+        )
+        weightLossModeLayout.setBackgroundResource(
+            if (UserRepository.premium) {
+                R.drawable.a_green_weightloss_btn
+            } else {
+                R.drawable.weightlossbtnbig
+            }
+        )
+        songsLayout.setBackgroundResource(
+            if (UserRepository.premium) {
+                R.drawable.a_backgraund_list_panelpleer
+            } else {
+                R.drawable.backgroundlistpanel
+            }
+        )
+        albumImageView.setBackgroundResource(
+            if (UserRepository.premium) {
+                R.drawable.a_green_photoalbomweightloss
+            } else {
+                R.drawable.photoalbum
+            }
+        )
+
     }
 
 }

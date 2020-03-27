@@ -1,59 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PremiumActivity"
-    android:background="@drawable/backall">
+    android:background="@drawable/backall"
+    android:orientation="vertical"
+    tools:context=".ui.PremiumActivity">
+
+    <ImageView
+
+        android:id="@+id/pick"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pick" />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:weightSum="100">
 
         <ImageView
-            android:layout_marginTop="8dp"
             android:id="@+id/addSongsButton"
-            android:padding="8dp"
-            android:layout_marginLeft="10dp"
-            android:background="?selectableItemBackgroundBorderless"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentStart="true"
-            android:src="@drawable/back"
-            />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:onClick="back"
+            android:padding="8dp"
+            android:src="@drawable/back" />
 
         <TextView
-            android:layout_marginTop="19dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
+            android:layout_marginTop="19dp"
             android:text="@string/premium"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
 
-    <Button
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
+
+    <ImageView
+
+        android:id="@+id/best"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/button"/>
+        android:layout_below="@+id/pick"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/button_selector2"
+        android:textColor="@drawable/color_text" />
+
+    <TextView
+
+        android:id="@+id/buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/green"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="BUY NOW AND SAVE 65% "
+        android:textColor="@drawable/color_text"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buy"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="9.99 €/mounth (1 year)"
+        android:textColor="@drawable/color_text" />
+
+
+    <ImageView
+        android:id="@+id/green"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/pick"
+        android:layout_alignRight="@+id/pick"
+        android:src="@drawable/best" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pick"
+        android:layout_centerHorizontal="true"
+        android:background="#90c1c1c1"
+        android:text="\nENJOY YOUR LOVELY MUSIC \n AND LOSS WEIGHT\n"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
 
     <Button
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
+        android:id="@+id/btn"
         android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/best"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:layout_height="70dp"
-        android:background="@drawable/button"
-        />
+        android:layout_marginRight="30dp"
+        android:background="@drawable/button_selector2"
+        android:onClick="btn_premium_click"
+        android:textColor="@drawable/color_text" />
 
-</LinearLayout>
+    <TextView
+
+        android:id="@+id/buy2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="TEST 7 DAY FREE"
+        android:textColor="@drawable/color_text"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buy2"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="9.99 €/mounth (1 mounth)"
+        android:textColor="@drawable/color_text" />
+
+
+</RelativeLayout>
