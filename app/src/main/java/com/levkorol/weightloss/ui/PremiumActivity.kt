@@ -26,16 +26,9 @@ class PremiumActivity : AppCompatActivity() {
             } else {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage("Are you want premium acc?")
-                builder.setPositiveButton("YES") { dialog, which ->
-
-                }
-
-                builder.setNegativeButton("No") { dialog, which ->
-
-                }
-
+                builder.setPositiveButton("YES") { dialog, which -> }
+                builder.setNegativeButton("No") { _, _ -> }
                 val dialog: AlertDialog = builder.create()
-
                 dialog.show()
             }
         }

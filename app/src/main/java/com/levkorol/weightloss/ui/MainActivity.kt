@@ -23,8 +23,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.common.eventbus.EventBus
-import com.google.common.eventbus.Subscribe
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.auth.User
 import com.levkorol.weightloss.R
@@ -34,6 +32,7 @@ import com.levkorol.weightloss.service.SuperMediaPlayer
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.ThreadMode
 
 
@@ -90,9 +89,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        if(intent.getBooleanExtra("sign", true)) {
-//            startActivity(Intent(this,ProfileUserActivity::class.java))
-//        }
+        if(intent.getBooleanExtra("sign", true)) { // TODO
+            startActivity(Intent(this,ProfileUserActivity::class.java))
+        }
 
         loadPreferences()
 
@@ -149,7 +148,7 @@ class MainActivity : AppCompatActivity() {
             }
         }).start()
     }
-//
+
 //    override fun onStart() {
 //        super.onStart()
 //        EventBus.getDefault().register(this)
@@ -158,11 +157,6 @@ class MainActivity : AppCompatActivity() {
 //    override fun onStop() {
 //        super.onStop()
 //        EventBus.getDefault().unregister(this)
-//    }
-
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onEvent(event: SampleEvent) {
-//        /* тут чего-нибудь делаем */
 //    }
 
     override fun onResume() {
@@ -221,6 +215,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    // SUBSCRIBE-METHODS
+
+    //    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onEvent(event: SampleEvent) {
+//        /* тут чего-нибудь делаем */
+//    }
 
     // CLICK-METHODS
 

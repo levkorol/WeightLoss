@@ -20,7 +20,7 @@ class SettingsActivity : AppCompatActivity() {
             window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
 
-                    if (auth.currentUser != null) swich.isEnabled
+        if (auth.currentUser != null) swich.isChecked = true // TODO
 
 
 

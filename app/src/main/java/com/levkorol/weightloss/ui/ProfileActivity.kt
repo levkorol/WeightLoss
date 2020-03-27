@@ -104,7 +104,7 @@ class ProfileActivity : AppCompatActivity() {
             .whereEqualTo("email", auth.currentUser?.email)
             .get()
             .addOnSuccessListener { result ->
-                if( result.documents.size ==  0 ) {
+                if (result.documents.size ==  0 ) {
                     Toast.makeText(baseContext, "polzovatel ne nayden.", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.v(ProfileUserActivity.TAG, "loadInfo#succes: ${result.documents[0].get("name")}")

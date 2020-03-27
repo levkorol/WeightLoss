@@ -31,12 +31,9 @@ object UserRepository {
     fun setPremium(context: Context, premium: Boolean) {
         this.premium = premium
         //  EventBus.getDefault().post(EventSample())
-        // TODO отправляем событие
         // TODO и на сервере обновляем ещё
 //       db.collection("users")
-//           .
     }
-
 
     fun updatePhotoProfile(i: ImageView) {
         val reference = storage.reference.child("images/${auth.currentUser?.email}")
@@ -60,6 +57,10 @@ object UserRepository {
         val premiumUser = if ( premium ) { 1 } else { 0 }
 
         "premium" to premiumUser
+    }
+
+    private fun updatePremium(documentId: String) {
+
     }
 
 }
