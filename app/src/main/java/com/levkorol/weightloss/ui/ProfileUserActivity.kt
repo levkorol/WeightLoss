@@ -62,7 +62,7 @@ class ProfileUserActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 if (result.documents.size == 0) {
-                    Toast.makeText(baseContext, "polzovatel ne nayden.", Toast.LENGTH_SHORT).show()
+                    showToast("Please log in.")
                 } else {
                     Log.v(TAG, "loadInfo#succes: ${result.documents[0].get("name")}")
                     updateLayout(result.documents[0])

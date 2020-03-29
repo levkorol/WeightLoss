@@ -11,37 +11,50 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".ui.Language"
-            android:theme="@style/App"></activity>
+            android:theme="@style/App"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.ProfileUserActivity"
-            android:theme="@style/App" />
+            android:theme="@style/App"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.InvateFriendsActivity"
-            android:theme="@style/App" />
+            android:theme="@style/App"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.PremiumActivity"
-            android:theme="@style/App" />
+            android:theme="@style/AppDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.SettingsActivity"
-            android:theme="@style/App" />
+            android:theme="@style/AppDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.SignUpWithEmailActivity"
             android:theme="@style/App"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".ui.ProfileActivity" />
-        <activity android:name=".ui.SongsActivity" />
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SongsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.RegistrationActivity"
-            android:theme="@style/App" />
+            android:theme="@style/App"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.LoginPasswordActivity"
             android:theme="@style/App"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".ui.MainActivity">
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

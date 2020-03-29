@@ -14,21 +14,13 @@
 
     </style>
 
-    <style name="Dialog" parent="Theme.AppCompat.Light.NoActionBar" >
-        <!-- Customize your theme here. -->
-
-        <item name="colorPrimary">#000</item>
-        <item name="colorPrimaryDark">#3a3a3a</item>
-        <item name="colorAccent">#fffcfb</item>
-
-    </style>
 
 
     <style name="App" parent="Theme.AppCompat.Light.NoActionBar" >
 
         <item name="colorPrimary">#fff</item>
         <item name="colorPrimaryDark">#3a3a3a</item>
-        <item name="colorAccent">@color/coral</item>
+        <item name="colorAccent">#fff</item>
 
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
 
@@ -39,6 +31,18 @@
 
     </style>
 
+    <style name="AppDialog" parent="Theme.AppCompat.Light.NoActionBar" >
 
+        <item name="colorPrimary">#fff</item>
+        <item name="colorPrimaryDark">#3a3a3a</item>
+        <item name="colorAccent">@color/grass</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
+
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+
+
+    </style>
 
 </resources>

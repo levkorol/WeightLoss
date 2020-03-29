@@ -88,9 +88,14 @@ class ProfileActivity : AppCompatActivity() {
 //                    startActivity(profileIntent)
                 }
                 R.id.settingsItem -> {
-                    val settingsIntent = Intent(this, SettingsActivity::class.java)
-                    settingsIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-                    startActivity(settingsIntent)
+                    if(auth.currentUser == null) {
+                        showToast("Please log in.")
+                    } else {
+                        val settingsIntent = Intent(this, SettingsActivity::class.java)
+                        settingsIntent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                        startActivity(settingsIntent)
+                    }
+
                 }
                 else -> {
                 }

@@ -1,210 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/backall"
-    android:orientation="vertical"
-    tools:context=".ui.InvateFriendsActivity">
-    <ImageView
-        android:id="@+id/pick5"
+    android:background="@drawable/backall">
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:src="@drawable/pick5"
-        android:scaleType="centerCrop"/>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/pick5"
-        android:layout_centerHorizontal="true"
-        android:background="#90c1c1c1"
-        android:text="\nINVITE YOUR FRIENDS \n AND ENGOY APP FOR FREE\n"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold" />
-
-
-    <RelativeLayout
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="100"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.InvateFriendsActivity">
 
         <ImageView
-            android:onClick="back"
-            android:layout_marginTop="8dp"
-            android:id="@+id/addSongsButton"
-            android:padding="8dp"
-            android:layout_marginLeft="10dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/back"
-            />
+            android:id="@+id/pick5"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pick5" />
+
 
         <TextView
-            android:layout_marginTop="19dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pick5"
             android:layout_centerHorizontal="true"
+            android:background="#90c1c1c1"
+            android:text="\nINVITE YOUR FRIENDS \n AND ENGOY APP FOR FREE\n"
+            android:textAlignment="center"
             android:textColor="@color/white"
-            android:text="@string/invate_friends"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:weightSum="100">
+
+            <ImageView
+                android:id="@+id/addSongsButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:onClick="back"
+                android:padding="8dp"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="19dp"
+                android:text="@string/invate_friends"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/one"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/pick5"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/class_invate_friends" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/day_one"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/day_oee"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/seven"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/one"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/class_invate_friends" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/day_two"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/day_too"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/three"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/seven"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/class_invate_friends" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/three"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/tree_day"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/three"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button"
+            android:elevation="4dp"
+            android:onClick="shareBtn"
+            android:padding="8dp"
+            android:text="@string/invate"
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>
-
-
-    <LinearLayout
-        android:id="@+id/one"
-        android:layout_below="@+id/pick5"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/class_invate_friends" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:text="@string/day_one"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="@string/day_oee"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/seven"
-        android:layout_below="@+id/one"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/class_invate_friends" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:text="@string/day_two"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="@string/day_too"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/three"
-        android:layout_below="@+id/seven"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/class_invate_friends" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:text="@string/three"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="@string/tree_day"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <Button
-        android:layout_below="@+id/three"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button"
-        android:onClick="shareBtn"
-        android:padding="8dp"
-        android:elevation="4dp"
-        android:text="@string/invate"
-        android:textColor="@color/white"
-        />
-
-
-</RelativeLayout>
+</ScrollView>

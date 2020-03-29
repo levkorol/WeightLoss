@@ -17,7 +17,7 @@ class InvateFriendsActivity : AppCompatActivity() {
     fun shareBtn(v: View) {
         val shareIntent = Intent()
         shareIntent.action = Intent.ACTION_SEND
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "ali")
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "There will be a link to the app")
         shareIntent.type = "text/plain"
         startActivity(Intent.createChooser(shareIntent, "send to"))
     }

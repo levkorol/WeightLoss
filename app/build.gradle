@@ -46,6 +46,9 @@ dependencies {
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
 
+    implementation 'com.github.santalu:aspect-ratio-imageview:1.0.9'
+
+
     def eventbus_version = '3.2.0'
     implementation "org.greenrobot:eventbus:$eventbus_version"
     kapt "org.greenrobot:eventbus-annotation-processor:$eventbus_version"
@@ -60,5 +63,11 @@ kotlin {
 kapt {
     arguments {
         arg('eventBusIndex', 'com.example.myapp.MyEventBusIndex')
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
     }
 }

@@ -27,12 +27,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.auth.User
 import com.levkorol.weightloss.R
 import com.levkorol.weightloss.data.UserRepository
+import com.levkorol.weightloss.model.EventsB
 import com.levkorol.weightloss.model.SongInfo
 import com.levkorol.weightloss.service.SuperMediaPlayer
 import com.levkorol.weightloss.util.dp
 import com.levkorol.weightloss.util.getSongInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
@@ -55,9 +57,11 @@ class MainActivity : AppCompatActivity() {
         private const val SP_PLAYLIST = "PLAYLIST"
 
         private const val NO_INDEX = -1 // -1 - типа не выбран индекс песни
+
+        private var mp: SuperMediaPlayer? = null
     }
 
-    private var mp: SuperMediaPlayer? = null
+
     private var totalTime: Int = 0
 
     private var originalUris: List<Uri>? = null
@@ -89,9 +93,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(intent.getBooleanExtra("sign", true)) { // TODO
-            startActivity(Intent(this,ProfileUserActivity::class.java))
-        }
+//        if(intent.getBooleanExtra("sign", true)) { // TODO
+//            startActivity(Intent(this,ProfileUserActivity::class.java))
+//        }
+
+//        if(UserRepository.premium ){
+//            onEvent(EventsB())
+//        }
 
         loadPreferences()
 
@@ -149,15 +157,17 @@ class MainActivity : AppCompatActivity() {
         }).start()
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        EventBus.getDefault().register(this)
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        EventBus.getDefault().unregister(this)
-//    }
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+
+    }
 
     override fun onResume() {
         super.onResume()
@@ -218,10 +228,11 @@ class MainActivity : AppCompatActivity() {
 
     // SUBSCRIBE-METHODS
 
-    //    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onEvent(event: SampleEvent) {
-//        /* тут чего-нибудь делаем */
-//    }
+        @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: EventsB) {
+       UserRepository.setPremium(this,true)
+            updateByPremium()
+    }
 
     // CLICK-METHODS
 
@@ -306,10 +317,12 @@ class MainActivity : AppCompatActivity() {
         if (shuffleMode) {
             shuffleImageView.setBackgroundResource(R.drawable.offbtn)
             shuffleMode = false
+
             play(originalUris)
         } else {
             shuffleImageView.setBackgroundResource(R.drawable.onbtn)
             shuffleMode = true
+
             play(uris?.shuffled())
         }
     }
@@ -318,9 +331,11 @@ class MainActivity : AppCompatActivity() {
         if (repeatMode) {
             repeatImageView.setBackgroundResource(R.drawable.offbtn)
             repeatMode = false
+
         } else {
             repeatImageView.setBackgroundResource(R.drawable.onbtn)
             repeatMode = true
+
         }
     }
 

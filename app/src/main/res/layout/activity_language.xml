@@ -50,9 +50,12 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/addSongsButton">
+        android:checkedButton="@id/english"
+
+        >
 
         <RadioButton
+            android:id="@+id/english"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -79,6 +82,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:background="@android:color/transparent"
+            android:layoutDirection="rtl"
             android:text="German"
             android:textAlignment="textStart"
             android:textAllCaps="false"

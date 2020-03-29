@@ -2,5 +2,6 @@
 <resources>
     <dimen name="test_dimen">10dp</dimen>
     <dimen name="super_left_padding">15dp</dimen>
-    <dimen name="margin_top">25</dimen>
+    <dimen name="margin_top">1dp</dimen>
+
 </resources>

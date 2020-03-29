@@ -7,6 +7,8 @@ import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.levkorol.weightloss.R
+import com.levkorol.weightloss.data.UserRepository
+
 import kotlinx.android.synthetic.main.activity_premium.*
 
 class PremiumActivity : AppCompatActivity() {
@@ -26,8 +28,31 @@ class PremiumActivity : AppCompatActivity() {
             } else {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage("Are you want premium acc?")
-                builder.setPositiveButton("YES") { dialog, which -> }
-                builder.setNegativeButton("No") { _, _ -> }
+                builder.setPositiveButton("YES") { dialog, which ->
+                   UserRepository.setPremium(this,true)
+                }
+                builder.setNegativeButton("No") { _, _ ->
+                   UserRepository.setPremium(this,false)
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            }
+        }
+
+
+
+        btn7day_free.setOnClickListener {
+            if (auth.currentUser == null) {
+                showToast("Please Login")
+            } else {
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage("Are you want premium acc?")
+                builder.setPositiveButton("YES") { dialog, which ->
+                   UserRepository.setPremium(this,true)
+                }
+                builder.setNegativeButton("No") { _, _ ->
+                   UserRepository.setPremium(this,false)
+                }
                 val dialog: AlertDialog = builder.create()
                 dialog.show()
             }

@@ -41,7 +41,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/margin_top"
             android:id="@+id/albumImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
